@@ -9,7 +9,7 @@ hosts_path = "C:\Windows\System32\drivers\etc\hosts"
 redirect = "127.0.0.1"
 
 # Websites block
-website_list =["www.fast.com"]
+website_list =["fast.com"]
 check = input("Y or N:")
 
 # Main 
@@ -23,8 +23,7 @@ while True:
                     pass
                 else:
                     # Apply to host
-                    # file.write(redirect + " " + website + "\n")
-                    file.write("0.0.0.0" + " " + website + "\n")
+                    file.write(redirect + " " + website + "\n")
         #Success 
         print("Blocked !!") 
         break
