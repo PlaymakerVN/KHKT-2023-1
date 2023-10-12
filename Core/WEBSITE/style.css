@@ -11,7 +11,7 @@ body {
 }
 
 form {
-  padding: 15px 25px;
+  padding: 15px;
   display: flex;
   gap: 10px;
   justify-content: center;
@@ -34,13 +34,33 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
+#wrapper-2{
+  margin: 15px 25px;
+}
+#wrapper-3{
+  display: inline-block;
+  max-width: 250px;
+  border: 1px solid #a7a7a7;
+}
+#menu{
+  float: right;
+  display: inline-block;
+  text-align: left;
+  padding: 10px;
+  background: #fff;
+  height: 390px;
+  width: 650px;
+  border: 1px solid #a7a7a7;
+  overflow: auto;
+  border-radius: 4px;
+  border-bottom: 4px solid #a7a7a7;
+}
 #wrapper,
 #loginform {
-  margin: 0 auto;
+  margin:auto;
   padding-bottom: 25px;
   background: #eee;
-  width: 600px;
+  width: 1000px;
   max-width: 100%;
   border: 2px solid #212121;
   border-radius: 4px;
@@ -59,12 +79,11 @@ a:hover {
 
 #chatbox {
   text-align: left;
-  margin: 0 auto;
-  margin-bottom: 25px;
+  margin: 15px;
   padding: 10px;
   background: #fff;
   height: 300px;
-  width: 530px;
+  width: 200px;
   border: 1px solid #a7a7a7;
   overflow: auto;
   border-radius: 4px;
@@ -74,19 +93,19 @@ a:hover {
 #usermsg {
   flex: 1;
   border-radius: 4px;
-  border: 1px solid #ff9800;
+  border: 1px solid #a7a7a7;
 }
 
 #name {
   border-radius: 4px;
-  border: 1px solid #ff9800;
+  border: 1px solid #a7a7a7;
   padding: 2px 8px;
 }
 
 #submitmsg,
 #enter{
-  background: #ff9800;
-  border: 2px solid #e65100;
+  background: #a7a7a7;
+  border: 2px solid #787878;
   color: white;
   padding: 4px 10px;
   font-weight: bold;
@@ -97,12 +116,12 @@ a:hover {
   color: #ff0000;
 }
 
-#menu {
+#title {
   padding: 15px 25px;
   display: flex;
 }
 
-#menu p.welcome {
+#title p.welcome {
   flex: 1;
 }
 
@@ -113,29 +132,32 @@ a#exit {
   border-radius: 4px;
   font-weight: bold;
 }
-
+.botchat{
+  background: #c9f0d4;
+}
+.botmes{
+  color: #3d3d3d;
+}
 .msgln {
   margin: 0 0 5px 0;
 }
 
 .msgln span.left-info {
-  color: orangered;
+  color: red;
 }
 
-.msgln span.chat-time {
+.msgln p.chat-time {
   color: #666;
-  font-size: 60%;
-  vertical-align: super;
 }
 
-.msgln b.user-name, .msgln b.user-name-left {
+.user-name,b.user-name, .msgln b.user-name-left {
   font-weight: bold;
   background: #546e7a;
   color: white;
   padding: 2px 4px;
   font-size: 90%;
-  border-radius: 4px;
-  margin: 0 5px 0 0;
+  border-radius: 5px;
+  margin:5px 5px 5px;
 }
 
 .msgln b.user-name-left {
