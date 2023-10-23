@@ -5,14 +5,15 @@ $testing = "no";
 //USER
 if(isset($_SESSION['name'])){
 	//Main Chat
-	$text_message = "<div> <b class='user-name'>".$_SESSION['name']."</b> ".stripslashes(htmlspecialchars($text))."</div><br>";
+	$text_message = "<div> <b class='user-name'></b> ".stripslashes(htmlspecialchars($text))."</div><br>";
     file_put_contents("log.html", $text_message, FILE_APPEND | LOCK_EX);
 	//Clear Function
-	if($_POST['text'] == "Console.clear"){
+	if($_POST['text'] == "/clear.log"){
 		file_put_contents("log.html", "");
 	}
-	if($_POST['text'] == "Console.IP"){
-		$text_message = "<div class='botchat'> 	<p class='chat-time'>".date("g:i A")."</p> <b>IP CLEARED</b></div><br>";
+	if($_POST['text'] == "/clear.ip"){
+		$text_message = "<div class='botchat'> 	<p class='chat-time'>".date("g:i A")."</p> <b>ip_ban cleared </b></div><br>";
+		file_put_contents("log.html", $text_message, FILE_APPEND | LOCK_EX);
 		file_put_contents("ip_ban.html", "");
 	}
     //Detect IP
@@ -32,7 +33,7 @@ if(isset($_SESSION['name'])){
 //BOT
 }else{
 	if($_POST['text']=="ip"){
-		file_get_contents("ip_ban.html"); 
+		echo(file_get_contents("ip_ban.html")); 
 	}else{
 	//Main
     $_SESSION['name']="BOT";

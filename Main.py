@@ -9,8 +9,8 @@ hosts_path = "C:\Windows\System32\drivers\etc\hosts"
 # localhost's IP
 redirect = "127.0.0.1"
 
-server="https://uninhibited-pints.000webhostapp.com/post.php"
-
+# server="https://uninhibited-pints.000webhostapp.com/post.php"
+# 
 r = requests.post(url=server,data={'text':'BOT IS STARTED'})
 
 # Websites block
