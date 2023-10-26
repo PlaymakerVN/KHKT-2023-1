@@ -24,7 +24,7 @@ if(isset($_SESSION['name'])){
 			file_put_contents("ip_ban.html", $ip[1], FILE_APPEND | LOCK_EX);
 			file_put_contents("ip_ban.html", "");
 		}else{
-			file_put_contents("ip_ban.html", $ip[1], FILE_APPEND | LOCK_EX);
+			file_put_contents("ip_ban.html", trim($ip[1]).PHP_EOL, FILE_APPEND | LOCK_EX);
 		}
 		//PRINT IP
 	 	$text_message = "<div class='botchat'> 	<p class='chat-time'>".date("g:i A")."</p> <b>ADDED IP ".stripslashes(htmlspecialchars($ip[1]))."</b></div><br>";
