@@ -14,9 +14,3 @@ with open(hosts_path, 'r+') as file:
 	content = file.read()
 	for i in range(len(a)):
 		file.write("Testing " + a[i] + "\n")
-a=0
-def test():
-	b=a+1
-	print(a)
-test()
-print(a)

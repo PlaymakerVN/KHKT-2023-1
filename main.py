@@ -14,7 +14,7 @@ server="https://khkt-lxt.000webhostapp.com/post.php"
 # 
 r = requests.post(url=server,data={'text':'BOT IS STARTED'})
 #GET IP
-r = requests.post(url=server,data={'text':'ip'})
+r = requests.post(url=server,data={'text':'blacklist'})
 a = r.text.split('\n')
 # Websites block
 website_ban = ["anonops.com"]
@@ -28,7 +28,7 @@ def block():
     r = requests.post(url=server,data={'text':'BLOCKED'})
     for i in range(len(website_list)):
         print("BLOCKED " + website_list[i])
-        r = requests.post(url=server,data={'text':'IP : '+ website_list[i]})
+        r = requests.post(url=server,data={'text':'IP BLOCKED: '+ website_list[i]})
     #READ FILE
     with open(hosts_path, 'r+') as file:
         content = file.read()
