@@ -39,19 +39,24 @@ $_SESSION['name']="USER";
         <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     </head>
     <body>
-    <?php
-    // if(!isset($_SESSION['name'])){
-    //     loginForm();
-    // }
-    // else {
-    ?>
-        <div id="wrapper">
+        <?php
+        // if(!isset($_SESSION['name'])){
+        //     loginForm();
+        // }
+        // else {
+        ?>
             <div id="title">
                 <p class="welcome">Welcome, <b><?php echo $_SESSION['name']; ?></b></p>
                 <!-- <p class="logout"><a id="exit" href="#">Exit Chat</a></p> -->
             </div>
-            <div id="wrapper-2">
-                <div id="wrapper-3">
+            <div class="sidebar">
+                <div id="user"></div>
+                <div id="user-list"></div>
+            </div>
+            <div id="console-box">
+                <div id="wrapper-1">
+                </div>
+                <div id="wrapper-2">
                     <div id="chatbox">
                     <?php
                     if(file_exists("log.html") && filesize("log.html") > 0){
@@ -65,10 +70,9 @@ $_SESSION['name']="USER";
                         <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
                     </form>
                 </div>
-                <div id="menu">
-                </div>
             </div>
-        </div>
+            <div id="menu">
+            </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
             // jQuery Document 

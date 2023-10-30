@@ -8,18 +8,14 @@ function addinfile($dir) {
 
 if(isset($_SESSION['name'])){
 	//Main Chat
-	$text_message = "<div> <b class='user-name'></b> ".stripslashes(htmlspecialchars($text))."</div><br>";
+	$text_message = "<div> <b class='user-name'>USER - ".date("g:i A")."</b><p id='user-chat'> ".stripslashes(htmlspecialchars($text))."</p></div><br>";
     file_put_contents("log.html", $text_message, FILE_APPEND | LOCK_EX);
 	//Clear Function
 	if (str_starts_with($_POST['text'],"/clear")) {
 		$dir = explode('.', $_POST['text']);
-		print_r($dir);
-		addinfile($dir);
-	}
-	if($_POST['text'] == "/clear.blacklist"){
-		$text_message = "<div class='botchat'> 	<p class='chat-time'>".date("g:i A")."</p> <b>blacklist cleared </b></div><br>";
+		addinfile(trim($dir[1]));
+		$text_message = "<div class='botchat'> 	<p class='chat-time'>".date("g:i A")."</p><b>".trim($dir[1])." cleared </b></div><br>";
 		file_put_contents("log.html", $text_message, FILE_APPEND | LOCK_EX);
-		file_put_contents("blacklist.html", "");
 	}
     //Detect IP
     if (str_starts_with($_POST['text'],"IP")) {
