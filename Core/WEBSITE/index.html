@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <title>Tuts+ Chat Application</title>
+        <meta charset="utf+7" />
+        <title>KHKT - LXT</title>
         <meta name="description" content="KHKT - LXT" />
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+        <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     </head>
     <body>
-    <?php
-    // if(!isset($_SESSION['name'])){
-    //     loginForm();
-    // }
-    // else {
-    ?>
-        <div id="wrapper">
-            <div id="menu">
+        <?php
+        // if(!isset($_SESSION['name'])){
+        //     loginForm();
+        // }
+        // else {
+        ?>
+            <div id="title">
                 <p class="welcome">Welcome, <b><?php echo $_SESSION['name']; ?></b></p>
                 <!-- <p class="logout"><a id="exit" href="#">Exit Chat</a></p> -->
             </div>
-            <div id="wrapper-2">
-                <div id="chatbox">
-                <?php
-                if(file_exists("log.html") && filesize("log.html") > 0){
-                    $contents = file_get_contents("log.html");          
-                    echo $contents;
-                }
-                ?>
+            <div class="sidebar">
+                <div id="user">
+                    <i id="user-ico"class="material-icons">account_circle</i>
                 </div>
-                <form name="message" action="">
-                    <input name="usermsg" type="text" id="usermsg" />
-                    <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
-                </form>
+                <div id="user-list"></div>
             </div>
-            <div id="optine">
-                <p>sad</p>
+            <div id="console-box">
+                <div id="wrapper-1">
+                </div>
+                <div id="wrapper-2">
+                    <div id="chatbox">
+                    <?php
+                    if(file_exists("log.html") && filesize("log.html") > 0){
+                        $contents = file_get_contents("log.html");          
+                        echo $contents;
+                    }
+                    ?>
+                    </div>
+                    <form name="message" action="">
+                        <input name="usermsg" type="text" id="usermsg" />
+                        <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
+                    </form>
+                </div>
             </div>
-        </div>
+            <div id="menu">
+            </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
             // jQuery Document 

@@ -5,9 +5,9 @@
 
 body {
   background: #515157;
-  font-family: sans-serif;
 
 }
+/*SCROLL BAR CONF*/
 ::-webkit-scrollbar{
   width: 14px;
 }
@@ -17,6 +17,7 @@ body {
   border-radius: 7px;
   box-shadow: inset 0 0 0 10px;
 }
+/*FORM CONF*/
 form {
   padding: 15px;
   display: flex;
@@ -27,10 +28,6 @@ form {
 form label {
   font-size: 1.5rem;
   font-weight: bold;
-}
-
-input {
-  font-family: "Lato";
 }
 
 a {
@@ -56,6 +53,8 @@ a:hover {
   padding-top: 20px;
 }
 #user{
+  text-align: center;
+  margin: auto;
   position: absolute;
   top: 0; 
   height: 10%;
@@ -66,12 +65,14 @@ a:hover {
   overflow-x: hidden; 
   border-radius: 100%;
 }
+#user-ico{
+
+}
 #user-list{
   top: 15%;
-  height: 100%;
-  max-height: 85%;
-  width: 100%;
   position: absolute;
+  width: 100%;
+  bottom: 0%;
   background-color: #2d2d30;
   border: solid 3px #1e1e1e;
   overflow-x: hidden; 
@@ -80,11 +81,11 @@ a:hover {
 /*CONSOLE BOX CONF*/
 #console-box{
   max-height: 100%;
-  width: 30%; /* Set the width of the sidebar */
+  width: 30%; 
   max-width: 100%;
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 5%; /* Stay at the top */
+  position: fixed; 
+  z-index: 1; 
+  top: 5%; 
   left: 11%;
   bottom: 5%;
 }
@@ -99,15 +100,14 @@ a:hover {
   border-radius: 15px;
 }
 #wrapper-2{
-  top: 35%;
-  bottom:5%;
-  height: 65%;
-  max-height: 65%;
-  width: 100%;
   position: absolute;
+  width: 100%;
+  top: 35%; 
+  bottom: 0%;
   background-color: #2d2d30;
-  border: solid 3px #1e1e1e;
   overflow-x: hidden; 
+  padding-top: 20px;
+  border: solid 3px #1e1e1e;
   border-radius: 15px;
 }
 #chatbox {
@@ -125,14 +125,14 @@ a:hover {
 }
 /*MENU CONF*/
 #menu{
-  width: 50%; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 5%; /* Stay at the top */
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 5%; 
   right: 5%;
   bottom: 5%;
-  background-color: #2d2d30; /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
+  background-color: #2d2d30; 
+  overflow-x: hidden; 
   padding-top: 20px;
   border: solid 3px #1e1e1e;
 }
