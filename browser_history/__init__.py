@@ -1,5 +1,9 @@
-from browser_history import browsers, generic, utils  # noqa: F401
-import json
+from . import browsers, generic, utils  # noqa: F401
+
+
+__version__ = "0.4.0"
+
+
 def get_history():
     """This method is used to obtain browser histories of all available and
     supported browsers for the system platform.
@@ -47,15 +51,3 @@ def get_bookmarks():
             utils.logger.info("%s", e)
     output_object.bookmarks.sort()
     return output_object
-outputs = get_history()
-# his is a list of (datetime.datetime, url) tuples
-def mk_history():
-    domain_connected = get_history()
-    domain_connected.save("history_file", output_format="json")
-    f = open('history_file')
-    data = json.load(f)
-    for i in data['history']:
-        a = i['URL']
-        print(a)
-
-mk_history()
