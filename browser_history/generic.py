@@ -165,10 +165,7 @@ class Browser(abc.ABC):
         """
 
         if not os.path.exists(self.history_dir):
-            # utils.logger.info("%s browser is not installed", self.name)
-            return []
-        else:
-            utils.logger.info("%s browser installed", self.name)
+            utils.logger.info("%s browser is not installed", self.name)
             return []
         if not self.profile_support:
             return ["."]

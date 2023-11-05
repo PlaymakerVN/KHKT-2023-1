@@ -11,7 +11,7 @@ def get_path():
     a = os.getcwd()
     b = a.split('/')[:3]
     result = '/'.join(b)
-    return result+'/'
+    return result
 
 
 
@@ -29,7 +29,7 @@ class Chromium(ChromiumBasedBrowser):
     name = "Chromium"
     aliases = ("chromiumhtm", "chromium-browser", "chromiumhtml")
 
-    linux_path = get_path()+".config/chromium"
+    linux_path = ".config/chromium"
     windows_path = "AppData/Local/chromium/User Data"
 
     profile_support = True
@@ -50,7 +50,7 @@ class Chrome(ChromiumBasedBrowser):
     name = "Chrome"
     aliases = ("chromehtml", "google-chrome", "chromehtm")
 
-    linux_path = get_path()+".config/google-chrome"
+    linux_path = ".config/google-chrome"
     windows_path = "AppData/Local/Google/Chrome/User Data"
     mac_path = "Library/Application Support/Google/Chrome/"
 
@@ -72,7 +72,7 @@ class Firefox(Browser):
     name = "Firefox"
     aliases = ("firefoxurl",)
 
-    linux_path =   get_path()+".mozilla/firefox"
+    linux_path =   get_path()+"/.mozilla/firefox"
     windows_path = "AppData/Roaming/Mozilla/Firefox/Profiles"
     mac_path = "Library/Application Support/Firefox/Profiles/"
 
@@ -155,7 +155,7 @@ class LibreWolf(Firefox):
     name = "LibreWolf"
     aliases = ("librewolfurl",)
 
-    linux_path = get_path()+".librewolf"
+    linux_path = ".librewolf"
 
 
 class Safari(Browser):
@@ -208,7 +208,7 @@ class Edge(ChromiumBasedBrowser):
     name = "Edge"
     aliases = ("msedgehtm", "msedge", "microsoft-edge", "microsoft-edge-dev")
 
-    linux_path = get_path()+".config/microsoft-edge-dev"
+    linux_path = ".config/microsoft-edge-dev"
     windows_path = "AppData/Local/Microsoft/Edge/User Data"
     mac_path = "Library/Application Support/Microsoft Edge"
 
@@ -228,7 +228,7 @@ class Opera(ChromiumBasedBrowser):
     name = "Opera"
     aliases = ("operastable", "opera-stable")
 
-    linux_path = get_path()+".config/opera"
+    linux_path = ".config/opera"
     windows_path = "AppData/Roaming/Opera Software/Opera Stable"
     mac_path = "Library/Application Support/com.operasoftware.Opera"
 
@@ -268,7 +268,7 @@ class Brave(ChromiumBasedBrowser):
     name = "Brave"
     aliases = ("bravehtml",)
 
-    linux_path = get_path()+".config/BraveSoftware/Brave-Browser"
+    linux_path = ".config/BraveSoftware/Brave-Browser"
     mac_path = "Library/Application Support/BraveSoftware/Brave-Browser"
     windows_path = "AppData/Local/BraveSoftware/Brave-Browser/User Data"
 
@@ -289,7 +289,7 @@ class Vivaldi(ChromiumBasedBrowser):
     name = "Vivaldi"
     aliases = ("vivaldi-stable", "vivaldistable")
 
-    linux_path = get_path()+".config/vivaldi"
+    linux_path = ".config/vivaldi"
     mac_path = "Library/Application Support/Vivaldi"
     windows_path = "AppData/Local/Vivaldi/User Data"
 
