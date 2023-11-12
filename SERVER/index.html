@@ -51,7 +51,7 @@
             $(document).ready(function () {
                 $("#submitmsg").click(function () {
                     var clientmsg = $("#usermsg").val();
-                    $.post("post.php", { text: clientmsg });
+                    $.post("post.js", { text: clientmsg });
                     $("#usermsg").val("");
                     return false;
                 });
