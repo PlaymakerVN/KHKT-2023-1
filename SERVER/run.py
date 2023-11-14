@@ -680,16 +680,17 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         with open("text.txt", "w") as file:
             for key, values in form_data.items():
                 file.write(f"{key}: {values[0]}\n")
-        print("POSTED DATA "+post_data)
-
+                reponses = handle.handle(key,values[0])
+                print("POSTED Key :"+key)
+                print("POSTED Data :"+values[0])
 
         # #SEND REPONSE
-        reponse = handle.testing(post_data[2])
-
+        print("RESPON Data :"+reponses)
+        
         self.send_response(200)
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
-        self.wfile.write(b'HANDLE.'+ b"{reponse}")
+        self.wfile.write(reponses.encode())
     def do_GET(self):
         """Serve a GET request."""
         f = self.send_head()
