@@ -1,15 +1,28 @@
-<html> 
-  <head> 
-    <title>Chat</title> 
-    <style> 
-      input { display: block; } 
-      ul    { list-style: none; } 
-    </style> 
-  </head> 
-  <body> 
-    <ul id="messages"></ul> 
-    <form id="chatbox"> 
-      <textarea></textarea> 
-      <input type="submit" value="Send" /> 
-       </form>  </body> 
-</html> 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send POST Request</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery library -->
+</head>
+<body>
+  <h1>Send POST Request on Button Click</h1>
+  <button id="postButton">Send POST Request</button>
+
+  <script>
+    // Handle button click event
+    document.getElementById('postButton').onclick = function() {
+      // Define the URL and form data
+      var url = 'http://localhost:8000/endpoint';  // Replace with your server URL
+      var formData = {key1: 'value1', key2: 'value2'};  // Replace with your form data
+
+      // Send POST request using jQuery
+      $.post(url, formData, function(response) {
+        console.log('POST request sent successfully!');
+        console.log('Response:', response);
+      }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Failed to send POST request:', errorThrown);
+      });
+    };
+  </script>
+</body>
+</html>
