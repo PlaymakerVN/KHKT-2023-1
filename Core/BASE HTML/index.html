@@ -17,12 +17,19 @@
             <nav>
                 <b  class="box"><span class="tooltip">USER</span></b>
                 <hr>
-                <div id="connected">
+                <div id="">
+                <a href=""><span class="tooltip">Create a Server</span></a>
+                <a href=""><span class="tooltip">Explore Popular Servers</span></a>
                 </div>
             </nav>
 
             <script>
-
+                    const nav_links = document.querySelectorAll('a');
+                    nav_links.forEach(anchor => anchor.addEventListener('click', (event) => {
+                        event.preventDefault(); // dont follow the link as its a dummy
+                        nav_links.forEach(anchor => anchor.className = '');
+                        anchor.className = 'active';
+                    }));
             </script>
 <!--                 <div id="user">
                     <i id="user-ico"class="material-icons">account_circle</i>
@@ -72,42 +79,16 @@
                 }
                 function loadConnected() {
                     $.ajax({
-                      url: 'connected.html',
-                      dataType: 'html',
-                      success: function(data) {
-                        $('#connected').html(data);
-                        
-                            // Prevent default behavior on click
-                        const nav_links = document.querySelectorAll('a');
-                        nav_links.forEach(anchor => anchor.addEventListener('click', (event) => {
-                            event.preventDefault(); // dont follow the link as its a dummy
-                            nav_links.forEach(anchor => anchor.className = '');
-                            anchor.className = 'active';
-                        }));
-                      },
-                      error: function() {
-                        console.error('Error: Unable to load HTML file.');
-                      }
-                    });
-                }
-                var n_connected = 0
-                function getInformation() {
-                    $.ajax({
-                      url: 'information.html',
-                      dataType: 'html',
-                      success: function(data) {
-                        if (n_connected != data) {
-                            loadConnected()
-                            console.log(data)
-                            n_connected=data
-
+                        url: "connected.html",
+                        cache: false,
+                        success: function (html) {
+                            $("nav").html(html); //Insert chat log into the #chatbox div 
+                            //Auto-scroll 
                         }
-                      }
                     });
                 }
-                loadConnected();
                 setInterval (loadLog, 2500);
-                setInterval(getInformation,2500);
+                setInterval (loadConnected, 2500);
                 // $("#exit").click(function () {
                 //     var exit = confirm("Are you sure you want to end the session?");
                 //     if (exit == true) {
