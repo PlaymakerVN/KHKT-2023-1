@@ -15,7 +15,7 @@ def append_text_to_file(file_path, text):
         file.write(text)
 
 def handle(key,data):
-	user_post="<div><b class='user-name'>USER </b><p id='user-chat'>"+data+"</p></div><br>" + "\n"
+	user_post="<div><b class='user-name'> </b><p id='user-chat'>"+data+"</p></div><br>" + "\n"
 	bot_post="<div class='botchat'><p class='chat-time'>"+data+"</p><b> cleared </b></div><br>"+"\n"
 	connected_up=""
 	#USER SEND

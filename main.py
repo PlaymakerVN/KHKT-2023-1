@@ -83,22 +83,28 @@ def save_url_history():
     domain_connected.save("history_file", output_format="json")
     f = open('history_file')
     data = json.load(f)
+    print("SAVED HISTORY BROWSERS")
     for i in data['history']:
         a = i['URL']
-        print(a)
 
 
 #MCORE PROGRAMME
 
 # localhost's IP
 redirect = "127.0.0.1"
+server_local=""
 
+d = input("LOCAL(1) or PUBLIC(2):")
+if (d =="1"):
+    server_local="y"
+if (d =="2"):
+    server_local="n"
 #SERVER LOCATING
-server_local="N"
+
 # if check_port() == 0:
 
 if server_local == "y" or server_local == "Y":
-    server="http://localhost/post.php"
+    server="http://localhost:8000"
 if server_local == "n" or server_local == "N":
     server="https://khkt-lxt.000webhostapp.com/post.php"
 
@@ -111,24 +117,19 @@ for i in range(len(website_list)):
 
 
 POST('text','BOT IS STARTED')
+
 c = input("Y or N:")
 
 hosts_path = get_hosts_path()
 save_url_history()
 
-port = 8000
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('localhost', port))
-sock.listen(1)
 
 
 while True:
-    connection, address = sock.accept()
-    connection.close()
-    # if(c == "y" or c == "Y"):
-    #     block()
-    #     break
-    # if (c == "n" or c =="N"):
-    #     unblock()
-    #     break
+    if(c == "y" or c == "Y"):
+        block()
+        break
+    if (c == "n" or c =="N"):
+        unblock()
+        break
 
