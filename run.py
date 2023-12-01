@@ -1,9 +1,20 @@
-
-
+import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-filepath = "C:\Windows\System32\drivers\etc\hosts"
+
+
+def detect_system():
+    if os.name == 'nt':
+        print("Windows")
+        hosts_path = "C:\Windows\System32\drivers\etc\hosts"
+        return hosts_path
+    elif os.name == 'posix':
+        print("Linux")
+        hosts_path = "/etc/hosts"
+        return hosts_path 
+
+filepath = detect_system()
 def read_hosts_file():
     try:
         with open(filepath, 'r') as file:
@@ -55,7 +66,7 @@ def delete_ip():
 
 root = tk.Tk()
 root.title("KHKT PROJECT")
-root.geometry("800x800")
+root.geometry("400x400")
 
 # Styling
 style = ttk.Style(root)
