@@ -80,14 +80,14 @@
                 });
                 $("#blacklistsubmit").click(function () {
                     var clientmsg = $("#blacklistmsg").val();
-                    $.post("post.php", { text: clientmsg });
+                    $.post("post.php", { blacklist: clientmsg });
                     $("#blacklistmsg").val("");
                     return false;
                 });
-                $("#submithis").click(function () {
-                    var clientmsg = $("#his").val();
-                    $.post("post", { blacklist: clientmsg });
-                    $("#his").val("");
+                $("#submitmsg").click(function () {
+                    var clientmsg = $("#usermsg").val();
+                    $.post("post.php", { text: clientmsg });
+                    $("#usermsg").val("");
                     return false;
                 });
                 function loadLog() {
