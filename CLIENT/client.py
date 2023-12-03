@@ -15,7 +15,7 @@ from browser_history import browsers, generic, utils,core
 # POST
 def POST(type,content):
     r = requests.post(url=server,data={type:content})
-    print("POST : "+content)
+    # print("POST : "+content)
 # GET HOST
 def get_hosts_path():
     plat = utils.get_platform_name()
@@ -91,13 +91,20 @@ def post_url_his(se):
     data = json.load(f)
     print("SAVED HISTORY BROWSERS")
     a=[]
+    b=[]
     # FILTER HIS
     dataArray=data['history']
+    POST('replace','his')
     for i in range(len(dataArray)):
+        # b.append(solve_url_his(data['history'][i]['URL']))
+        # print(b)
         a.append(solve_url_his(data['history'][i]['URL']))
-    print(a)
-
-        # r=POST('url_p',solve_url_his(a))
+        # Remove duplcated
+        c= list(set(a))
+    for o in range(len(c)):
+        r=POST('url_p',c[o])
+        #LOG
+    print("HISTORY SAVED AND POSTED ", len(a) )
 
 #MCORE PROGRAMME
 
@@ -107,7 +114,7 @@ redirect = "127.0.0.1"
 #SERVER LOCATING
 
 # if check_port() == 0:
-server_local=2
+server_local=1
 if server_local == 1:
     server="http://localhost:8000"
 if server_local == 2:
