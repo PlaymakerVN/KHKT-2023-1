@@ -1,11 +1,11 @@
 #Run in Root 
 import os 
-
 import time
 import requests
 import json
-
 import socket
+import urllib.parse
+import time
 
 from datetime import datetime as dt
 from browser_history import browsers, generic, utils,core
@@ -78,35 +78,39 @@ def unblock():
         print("Unblocked !!")
     pass
 #SAVE URL HISTORY
-def save_url_history(se):
+def solve_url_his(input_url):
+    parsed_url = urllib.parse.urlparse(input_url)
+    result = parsed_url.scheme + "://" + parsed_url.netloc
+    return result
+def post_url_his(se):
+
+    # SAVE HIS
     domain_connected = core.get_history()
     domain_connected.save("history_file", output_format="json")
     f = open('history_file')
     data = json.load(f)
     print("SAVED HISTORY BROWSERS")
-    for i in data['history']:
-        a = i['URL']
-        POST('url_p',i['URL'])
+    a=[]
+    # FILTER HIS
+    dataArray=data['history']
+    for i in range(len(dataArray)):
+        a.append(solve_url_his(data['history'][i]['URL']))
+    print(a)
 
+        # r=POST('url_p',solve_url_his(a))
 
 #MCORE PROGRAMME
 
 # localhost's IP
 redirect = "127.0.0.1"
-server_local=""
 
-d = input("LOCAL(1) or PUBLIC(2):")
-if (d =="1"):
-    server_local="y"
-if (d =="2"):
-    server_local="n"
 #SERVER LOCATING
 
 # if check_port() == 0:
-
-if server_local == "y" or server_local == "Y":
+server_local=2
+if server_local == 1:
     server="http://localhost:8000"
-if server_local == "n" or server_local == "N":
+if server_local == 2:
     server="https://khkt-lxt.000webhostapp.com/post.php"
 
 # Websites block
@@ -118,21 +122,26 @@ for i in range(len(website_list)):
 
 
 POST('text','BOT IS STARTED')
-POST('bl_p','127.0.0.1:80')
-POST('bl_p','youtube.com')
-POST('bl_p','facebook.com')
-c = input("Y or N:")
+# c = input("Y or N:")
 
 hosts_path = get_hosts_path()
-save_url_history(server_local)
+c="y"
 
-
+# while True:
+#     if(c == "y" or c == "Y"):
+#         for i in range(20):
+#             print(a)
+#             post_url_his(server_local)
+#             time.sleep(3)
+#             a=a+1
+#         c = input("Y or N:")
+#     if (c == "n" or c =="N"):
+#         break
 
 while True:
     if(c == "y" or c == "Y"):
-        block()
+        post_url_his(server_local)
         break
     if (c == "n" or c =="N"):
-        unblock()
         break
 

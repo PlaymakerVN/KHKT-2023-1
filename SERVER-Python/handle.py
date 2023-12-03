@@ -10,8 +10,7 @@ p_log="log.html"
 p_hi="history.html"
 p_bl="blacklist.html"
 def append_text_to_file(file_path, text):
-    mode = 'a' if os.path.exists(file_path) else 'w'
-    
+    mode = 'a' if os.path.exists(file_path) else 'w'    
     with open(file_path, mode) as file:
         file.write(text)
 

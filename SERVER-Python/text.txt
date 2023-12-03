@@ -1,1 +1,1 @@
-text: /clear.log
+text: BOT IS STARTED
