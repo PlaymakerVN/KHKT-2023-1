@@ -1,1 +1,1 @@
-text: BOT IS STARTED
+url_p: https://github.com
