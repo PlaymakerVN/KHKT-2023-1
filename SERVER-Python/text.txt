@@ -1,1 +1,1 @@
-url_p: https://github.com
+new_connect: 192.168.1.110

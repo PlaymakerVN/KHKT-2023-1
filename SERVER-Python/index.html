@@ -33,11 +33,6 @@
                     <div id="connected">
                     </div>
                 </nav>
-
-<!--                 <div id="user">
-                    <i id="user-ico"class="material-icons">account_circle</i>
-                </div>
-                <div id="user-list"></div> -->
             </div>
             <div class="console-box" id="console-box">
                 <div id="wrapper-1">
@@ -137,7 +132,7 @@
                 }
                 function loadConnected() {
                     $.ajax({
-                      url: 'connected.html',
+                      url: 'devicecon.html',
                       dataType: 'html',
                       success: function(data) {
                         $('#connected').html(data);
@@ -160,21 +155,21 @@
                 var n_connected = 0
                 function getInformation() {
                     $.ajax({
-                      url: 'information.html',
-                      dataType: 'html',
-                      success: function(data) {
-                        if (n_connected != data) {
-                            loadConnected()
-                            console.log(data)
-                            n_connected=data
+                        url: "information.html",
+                        cache: false,
+                        success: function (data) {
+                            if (n_connected != data) {
+                                loadConnected()
+                                console.log(data)
+                                n_connected=data
 
+                            }
                         }
-                      }
                     });
                 }
                 loadIntro()
                 loadConnected();
-                setInterval (loadLog, 2500);
+                setInterval(loadLog, 2500);
                 setInterval(getInformation,2500);
                 setInterval(loadBlacklist,2500);
                 setInterval(loadHistory,2500);

@@ -4,8 +4,10 @@
 # 		a = "LOL"
 # 		return a
 import os
+import json
 
-
+f_device="information.html"
+f_connected="devicecon.html"
 f_log="log.html"
 f_his="history.html"
 f_bl="blacklist.html"
@@ -17,6 +19,9 @@ def replace_text(file_path, text):
     mode = 'w'
     with open(file_path, mode) as file:
         file.write(text)
+device_connected=[]
+replace_text(f_device,"0")
+replace_text(f_connected,"")
 
 def handle(key,data):
 	user_post="<div><b class='user-name'> </b><p id='user-chat'>"+data+"</p></div><br>" + "\n"
@@ -26,30 +31,51 @@ def handle(key,data):
 	if key == "text":
 		append_text(f_log,user_post)
 		print("ADDED TEXT" + data)
-		a = "USER OK"
+		r = "USER OK"
+	#CLIENT METHOD\
+	# MAKE ID FOR DEIVCE CONNECTED
+	if key=="new_connect":
+		with open(f_connected, 'r+') as file:
+			global device_connected
+			content = file.read()
+			if data in device_connected : 
+				p = device_connected.index(data)
+				r="ID :"+str(int(p)+1)
+			if data not in device_connected:
+				device_connected.append(data)
+				file.write('<a href=""><span1 class="tooltip">'+data+'</span></a>' + "\n")
 
-	#CLIENT METHOD
-	if key=="bot":
-		append_text(f_log,user_post)
-		print("ADDED TEXT" + data)
-		a = "CLIENT OK"
-	if key =="url_p":
+				print("DEVICE CONNECTED : ",device_connected)
+				print("WRITE " + data)
+
+				#INFORMATION UPDATE
+				replace_text(f_device,str(len(device_connected)))
+
+
+				p = device_connected.index(data)
+				print("NEW DEVICE CONNECT SET ID :"+str(int(p)+1))
+				r="ID :"+str(int(p)+1)
+
+	# if key=="bot":
+	# 	append_text(f_device,user_post)
+	# 	print("ADDED TEXT" + data)
+	# 	r = "CLIENT OK"
+
+	# HISTORY POST
+	if key =="his_p":
 		append_text(f_his,data+"\n <hr>")
 		append_text(f_log,bot_post)
 		print("ADDED TEXT" + data)
-		a = "CLIENT OK"
+		r = "CLIENT OK"
+	#BLACKLIST POST
 	if key =="bl_p":
 		append_text(f_bl,data+"\n <hr>")
 		append_text(f_log,bot_post)
 		print("ADDED TEXT" + data)
-		a = "CLIENT OK"
+		r = "CLIENT OK"
 	if key=="replace" and data=="his":
 		replace_text(f_his,"<hr>")
 		print("CREATE" + data)
-		a = "CLIENT OK"
-	if key=="create":
-		append_text(f_log,bot_post)
-		print("CREATE" + data)
-		a = "CLIENT OK"
-	return a
+		r = "CLIENT OK"
+	return r
 

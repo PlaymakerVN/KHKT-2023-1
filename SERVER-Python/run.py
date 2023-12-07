@@ -680,6 +680,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         with open("text.txt", "w") as file:
             for key, values in form_data.items():
                 file.write(f"{key}: {values[0]}\n")
+                # reponses = "OK"
                 reponses = handle.handle(key,values[0])
                 print("POSTED Key :"+key)
                 print("POSTED Data :"+values[0])

