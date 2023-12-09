@@ -1,1 +1,1 @@
-new_connect: 192.168.1.110
+post_blacklist: facebook.com

@@ -37,7 +37,7 @@ def get_local_ip():
 
 
 def get_ip():
-    r = requests.post(url=server,data={'text':'blacklist'})
+    r = requests.post(url=server,data={'get_blacklist':'blacklist'})
     getted_ip = r.text.split('\n')
     return getted_ip
 #CHECK PORT OPENING
@@ -55,11 +55,10 @@ def check_port():
 #MAIN Function
 #BLOCK
 
-def block():
+def block(website_list):
     r = requests.post(url=server,data={'text':'BLOCKED'})
     for i in range(len(website_list)):
         print("BLOCKED " + website_list[i])
-        r = requests.post(url=server,data={'text':'IP BLOCKED: '+ website_list[i]})
     #READ FILE
     with open(hosts_path, 'r+') as file:
         content = file.read()
@@ -122,7 +121,6 @@ redirect = "127.0.0.1"
 
 #SERVER LOCATING
 
-# if check_port() == 0:
 server_local=1
 if server_local == 1:
     server="http://localhost:8000"
@@ -130,26 +128,19 @@ if server_local == 2:
     server="https://khkt-lxt.000webhostapp.com/post.php"
 
 # Websites block
-website_ban = ["anonops.com"]
-website_cloud = get_ip()
-website_list = website_cloud+website_ban
-for i in range(len(website_list)):
-    print("LIST :" + website_list[i])
+# website_ban = ["anonops.com"]
+# website_cloud = get_ip()
+# website_list = website_cloud+website_ban
+# for i in range(len(website_list)):
+#     print("LIST :" + website_list[i])
 
 # c = input("Y or N:")
-post_info()
 hosts_path = get_hosts_path()
+post_info()
+post_url_his(server_local)
 c="y"
 while True:
     if(c == "y" or c == "Y"):
-        break
+        block(get_ip())
     if (c == "n" or c =="N"):
         break
-
-# while True:
-#     if(c == "y" or c == "Y"):
-#         post_url_his(server_local)
-#         break
-#     if (c == "n" or c =="N"):
-#         break
-

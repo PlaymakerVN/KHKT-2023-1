@@ -75,7 +75,7 @@
                 });
                 $("#blacklistsubmit").click(function () {
                     var clientmsg = $("#blacklistmsg").val();
-                    $.post("post.php", { blacklist: clientmsg });
+                    $.post("post.php", { post_blacklist: clientmsg });
                     $("#blacklistmsg").val("");
                     return false;
                 });

@@ -32,6 +32,9 @@ def handle(key,data):
 		append_text(f_log,user_post)
 		print("ADDED TEXT" + data)
 		r = "USER OK"
+	if key == "post_blacklist":
+		append_text(f_bl,data+"\n")
+		r = "USER OK"
 	#CLIENT METHOD\
 	# MAKE ID FOR DEIVCE CONNECTED
 	if key=="new_connect":
@@ -56,10 +59,14 @@ def handle(key,data):
 				print("NEW DEVICE CONNECT SET ID :"+str(int(p)+1))
 				r="ID :"+str(int(p)+1)
 
-	# if key=="bot":
-	# 	append_text(f_device,user_post)
-	# 	print("ADDED TEXT" + data)
-	# 	r = "CLIENT OK"
+	if key=="get_blacklist":
+		file = open(f_bl, "r")
+		# Read the content of the file
+		content = file.read()
+		# Print the content
+		print(content)
+		file.close()
+		r = content
 
 	# HISTORY POST
 	if key =="his_p":
