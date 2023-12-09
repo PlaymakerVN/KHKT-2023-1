@@ -1,1 +1,1 @@
-post_blacklist: facebook.com
+text: BLOCKED
