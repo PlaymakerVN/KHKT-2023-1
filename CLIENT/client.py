@@ -57,7 +57,7 @@ def check_port():
 #BLOCK
 
 def block(website_list):
-    r = requests.post(url=server,data={'text':'BLOCKED'})
+    # r = requests.post(url=server,data={'text':'BLOCKED'})
     for i in range(len(website_list)):
         print("BLOCKED " + website_list[i])
     #READ FILE

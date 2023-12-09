@@ -70,25 +70,6 @@ def delete_ip():
     else:
         messagebox.showwarning("Warning", "Please select an IP address to delete.")
 
-
-root = tk.Tk()
-root.title("KHKT PROJECT")
-root.geometry("400x400")
-
-# Styling
-style = ttk.Style(root)
-style.theme_use("alt")
-style.configure("Treeview.Heading", font=("Helvetica", 8, "bold"))
-style.configure("Treeview", font=("Helvetica", 12))
-style.configure("TButton", font=("Helvetica", 12))
-
-# IP Address Entry
-label = tk.Label(root, text="Enter IP Address:")
-label.pack()
-
-entry = tk.Entry(root, font=("Helvetica", 12))
-entry.pack()
-
 #FILTER
 
 ip_youtube_filter=["216.239.38.119 www.youtube.com",
@@ -150,45 +131,102 @@ def on_or_off(a):
             else:
                 return "off"
                 
+root = tk.Tk()
+root.title("KHKT PROJECT")
+root.geometry("550x400")
+
+# Styling
+style = ttk.Style(root)
+style.theme_use("alt")
+style.configure("Treeview.Heading", font=("Helvetica", 8, "bold"))
+style.configure("Treeview", font=("Helvetica", 12))
+style.configure("TButton", font=("Helvetica", 12))
 
 var = tk.StringVar(value=on_or_off(ip_google_filter))
 
 var2 = tk.StringVar(value=on_or_off(ip_youtube_filter))
 
 # Create radio buttons
-radio_button1 = tk.Radiobutton(root, text="On", variable=var, value="on", command=handle_selection)
+radio_frame = tk.Frame(root, bd=1, relief="solid")
+radio_frame.pack(side=tk.LEFT, padx=10,pady=10)
+
+head_text = tk.Label(radio_frame, text="Google filter") 
+head_text.pack()
+
+radio_button1 = tk.Radiobutton(radio_frame, text="On", variable=var, value="on", command=handle_selection)
 radio_button1.pack()
 
-radio_button2 = tk.Radiobutton(root, text="Off", variable=var, value="off", command=handle_selection)
+radio_button2 = tk.Radiobutton(radio_frame, text="Off", variable=var, value="off", command=handle_selection)
 radio_button2.pack()
 
-radio_button3 = tk.Radiobutton(root, text="On", variable=var2, value="on", command=handle_selection2)
+head_text = tk.Label(radio_frame, text="Youtube filter") 
+head_text.pack()
+
+radio_button3 = tk.Radiobutton(radio_frame, text="On", variable=var2, value="on", command=handle_selection2)
 radio_button3.pack()
 
-radio_button4 = tk.Radiobutton(root, text="Off", variable=var2, value="off", command=handle_selection2)
+radio_button4 = tk.Radiobutton(radio_frame, text="Off", variable=var2, value="off", command=handle_selection2)
 radio_button4.pack()
 
+head_text = tk.Label(radio_frame, text="DNS PROTECT") 
+head_text.pack()
 
-# Button Frame
-button_frame = tk.Frame(root)
-button_frame.pack(pady=10)
+radio_button5 = tk.Radiobutton(radio_frame, text="On", variable=var2, value="on", command=handle_selection2)
+radio_button5.pack()
 
-# Create the button
-block_button = ttk.Button(button_frame, text="Block IP", command=block_ip)
+radio_button5 = tk.Radiobutton(radio_frame, text="Off", variable=var2, value="off", command=handle_selection2)
+radio_button5.pack()
+
+
+# Create the button frame
+button_frame = tk.Frame(root, pady=10 , bd=1, relief="solid")
+button_frame.pack(side=tk.TOP, fill=tk.X)
+
+# Create the label
+label = tk.Label(button_frame, text="Enter IP Address:")
+label.pack(side=tk.LEFT)
+
+# Create the entry
+entry = tk.Entry(button_frame, font=("Helvetica", 12))
+entry.pack(side=tk.LEFT)
+
+# Create the button frame inner
+button_frame_inner = tk.Frame(button_frame)
+button_frame_inner.pack(side=tk.RIGHT)
+
+# Create the block and delete buttons within the button frame inner
+block_button = ttk.Button(button_frame_inner, text="Block IP", command=block_ip)
 block_button.pack(side=tk.LEFT, padx=5)
 
-delete_button = ttk.Button(button_frame, text="Delete IP", command=delete_ip)
+delete_button = ttk.Button(button_frame_inner, text="Delete IP", command=delete_ip)
 delete_button.pack(side=tk.LEFT)
 
+# Fix the button_frame on top
+button_frame.pack(side=tk.TOP, fill=tk.X)
+
+# Center the button_frame within the root window
+root.update()  # Update the root window to get its current size
+button_frame.place(relx=0.5, rely=0, anchor=tk.N)
+
+# Update button_frame position whenever the root window size changes
+def update_button_frame_pos(event):
+    button_frame.update()  # Update the button_frame to get its current size
+    button_frame.place(relx=0.5, rely=0, anchor=tk.N)
+
+root.bind("<Configure>", update_button_frame_pos)  # Bind the update_button_frame_pos function to the root window's size change event
+
 # Table Frame
-table_frame = tk.Frame(root)
-table_frame.pack(pady=10)
+
+table_frame = tk.Frame(root, bd=1, relief="solid")
+table_frame.pack(pady=70, anchor="center",side=tk.LEFT)
 
 table_columns = ("Blocked IP Address",)
 table = ttk.Treeview(table_frame, columns=table_columns, show="headings")
 table.heading("Blocked IP Address", text="Blocked IP Address")
-table.pack()
+table.pack(padx=100)
 
+table_frame.config(width=1600, height=800)  # Setting the new size for the table frame
+table.config(height=15)  # Displaying 15 rows in the table
 # Update Table
 update_table()
 

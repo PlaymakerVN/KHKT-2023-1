@@ -1,1 +1,1 @@
-text: BLOCKED
+get_blacklist: blacklist
