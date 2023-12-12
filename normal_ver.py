@@ -2,7 +2,10 @@ import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from ttkthemes import ThemedTk
 
+# Create a themed Tkinter window
+root = ThemedTk(theme="equilux")
 
 def detect_system():
     if os.name == 'nt':
