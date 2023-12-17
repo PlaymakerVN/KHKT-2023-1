@@ -1,28 +1,26 @@
-import socket
-import threading
+import tkinter as tk
+from tkinter import ttk
+import requests
 
-def process_client(client):
-    while True:
-        data = client.recv(1024)
-        if not data:
-            break
-        elif b'GET' in data and b'www.facebook.com' in data:
-            client.sendall(b'HTTP/1.1 403 Forbidden\r\n\r\n')
-            break
-        else:
-            client.sendall(data)
-    client.close()
+def show_database():
+    response = requests.get(db_entry.get())
+    with open("database.txt", "wb") as f:
+        f.write(response.content)
 
-def run_proxy_server(port=8080):
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind(('localhost', port))
-    server.listen(5)
-    print('Starting proxy server on port %s' % port)
-    while True:
-        client, addr = server.accept()a
-        print('Connection from %s:%s' % addr)
-        client_handler = threading.Thread(target=process_client, args=(client,))
-        client_handler.start()
+    with open("database.txt", "r") as f:
+        database_contents = f.read()
 
-if __name__ == '__main__':
-    run_proxy_server()
+    # You can replace the print statement with your preferred way to display the contents of the database
+    print(database_contents)
+
+db_on = tk.Tk()
+db_on.title("KHKT-2023-1 Database")
+
+url = "https://github.com/PlaymakerVN/KHKT-2023-1/blob/main/database.txt"
+
+db_entry = ttk.Entry(db_on,text=url,font=("Helvetica", 12))
+db_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+
+ttk.Button(db_on, text="Show Database", command=show_database).pack(side=tk.LEFT)
+
+db_on.mainloop()

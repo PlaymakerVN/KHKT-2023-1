@@ -1,34 +1,45 @@
 import os
 import time
+import requests
 
 import tkinter as tk
 from tkinter import ttk
 from ttkbootstrap import Style
+from tkinter import filedialog
 
 from tkinter import messagebox
 
 
 root = tk.Tk()
 root.title("KHKT PROJECT")
-root.geometry("600x500")
+root.geometry("400x400")
 
 ttk_theme="superhero"
 # Styling
 style = Style(theme=ttk_theme)
 
+current_os=""
+filepath=""
+
+ip_youtube_filter=["216.239.38.119 www.youtube.com #YOUTUBE FILTER",
+"216.239.38.119 m.youtube.com #YOUTUBE FILTER",
+"216.239.38.119 youtubei.googleapis.com #YOUTUBE FILTER",
+"216.239.38.119 youtube.googleapis.com #YOUTUBE FILTER",
+"216.239.38.119 www.youtube-nocookie.com #YOUTUBE FILTER"]
+
+ip_google_filter="216.239.38.120 www.google.com #GOOGLE FILTER"
 
 def detect_system():
+    global filepath
+    global current_os
     if os.name == 'nt':
-        print("Windows")
-        hosts_path = "C:\Windows\System32\drivers\etc\hosts"
-        return hosts_path
+        current_os= "Windows"
+        filepath = "C:\Windows\System32\drivers\etc\hosts"
     elif os.name == 'posix':
-        print("Linux")
-        hosts_path = "/etc/hosts"
-        return hosts_path 
+        current_os = "Linux"
+        filepath = "/etc/hosts"
+detect_system()
 
-filepath = detect_system()
-print(filepath)
 
 def read_hosts_file():
     try:
@@ -38,31 +49,47 @@ def read_hosts_file():
     except FileNotFoundError:
         messagebox.showerror('Error', 'Hosts file not found.')
         return []
-def row_counter(row_num):
-    for i in range(row_num):
-        table.insert('', 'end', text=str(i+1), values=('', '', ''))
+
+#Function Password
+def get_password():
+    with open(filepath, 'r') as file:
+        lines = file.readlines()
+        password = [line.split()[1] for line in lines if len(line.split()) > 1 and line.split()[0] == '#passw']
+    return str(password[0])
+
+def get_pass():
+    with open(filepath, 'r+') as file:
+        content = file.read()
+        if "#passw" in content:
+            return get_password()
+        else:
+            return "admin"
+
+mkpass=get_pass()
+print(mkpass)
+def check_password():
+    entered_password = str(password_entry.get())
+    if entered_password == mkpass:
+        password_frame.destroy()
+        root.geometry("600x500")
+    else:
+        messagebox.showerror("Error", "Incorrect password!")
+#UPDATE TABLE
 def update_table():
     ip_addresses = read_hosts_file()
     table.delete(*table.get_children())
     row_column=0
     for line in ip_addresses:
-        items = line.split()
-        if len(items) == 3:
-            row_column=row_column+1
-            ip_address, website, blocked = items
-            table.insert('', 'end', text=row_column,values=[ip_address, website, blocked])
-        elif len(items) == 2:
-            row_column=row_column+1
-            ip_address, website = items
-            table.insert('', 'end',text=row_column, values=[ip_address, website, " "])
-
-ip_youtube_filter=["216.239.38.119 www.youtube.com #YOUTUBE FILTER",
-"216.239.38.119 m.youtube.com #YOUTUBE FILTER",
-"216.239.38.119 youtubei.googleapis.com #YOUTUBE FILTER",
-"216.239.38.119 youtube.googleapis.com #YOUTUBE FILTER",
-"216.239.38.119 www.youtube-nocookie.com #YOUTUBE FILTER"]
-
-ip_google_filter="216.239.38.120 www.google.com #GOOGLE FILTER"
+        if f"#passw {mkpass}" not in line:
+            items = line.split()
+            if len(items) == 3:
+                row_column=row_column+1
+                ip_address, website, blocked = items
+                table.insert('', 'end', text=row_column,values=[ip_address, website, blocked])
+            elif len(items) == 2:
+                row_column=row_column+1
+                ip_address, website = items
+                table.insert('', 'end',text=row_column, values=[ip_address, website, " "])
 
 def handle_selection():
     selected_value = var.get()
@@ -182,34 +209,12 @@ def delete_ip(a,b):
             messagebox.showinfo("Success", f"The IP address {ip_address} has been unblocked.")
     update_table()
                 
-#Function Password
-def get_password():
-    with open(filepath, 'r') as file:
-        lines = file.readlines()
-        password = [line.split()[1] for line in lines if len(line.split()) > 1 and line.split()[0] == 'passw']
-    return str(password[0])
-
-def get_pass():
-    with open(filepath, 'r+') as file:
-        content = file.read()
-        if "passw" in content:
-            return get_password()
-        else:
-            return "admin"
-
-mkpass=get_pass()
-print(mkpass)
-def check_password():
-    entered_password = str(password_entry.get())
-    if entered_password == mkpass:
-        password_frame.destroy()
-        # Put your main program logic here
-    else:
-        messagebox.showerror("Error", "Incorrect password!")
-
 #FRAME AND SETTING 
 db=[]
 def setting():
+    # Show information
+    info = tk.messagebox.showinfo("Information", f"KHKT PROJECT \n Current Os : {current_os} \n Hosts path: {filepath} \n Project for educational purposes")
+    #Frame
     frame = ttk.Frame(root,borderwidth=2, relief='solid')
     frame.place(relx=0.5, rely=0.5, relwidth=0.75, relheight=0.75, anchor='center')
 
@@ -217,47 +222,61 @@ def setting():
     label.pack(pady=10,fill=tk.Y)
 
     P_button_frame = ttk.Frame(frame)
-    P_button_frame.pack( fill=tk.X , pady=10,padx=10)
+    P_button_frame.pack(side=tk.TOP, fill=tk.X )
 
-    label = ttk.Label(P_button_frame , text="PASSWORD CHANGE")
-    label.pack(padx=12,side=tk.LEFT)
+    label_pass = ttk.Label(P_button_frame , text="PASSWORD CHANGE")
+    label_pass.pack()
 
-    password_change_entry = ttk.Entry(P_button_frame, font=("Helvetica", 12))
-    password_change_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+    cur_button_frame = ttk.Frame(P_button_frame)
+    cur_button_frame.pack(side=tk.TOP, fill=tk.X,pady=10,padx=10)
 
-    button_frame_inner = ttk.Frame(P_button_frame)
-    button_frame_inner.pack(side=tk.RIGHT)
+    label_cur = ttk.Label(cur_button_frame , text="New Password")
+    label_cur.pack(side=tk.LEFT,padx=10)
 
-    def change_password_en():
+    new_password_entry = ttk.Entry(cur_button_frame, font=("Helvetica", 12))
+    new_password_entry.pack(fill=tk.X,expand=True,padx=8)
+
+
+    def change_password_en_two():
         global mkpass
-        if password_change_entry.get() == mkpass:
-            print(password_change_entry.get())
+        new_password = password_change_entry.get()
+        if new_password != new_password_entry.get():
+            messagebox.showerror("Error", f"Not Match")
+        elif new_password == new_password_entry.get() == mkpass:
             messagebox.showerror("Error", f"Not Current Password")
-        elif password_change_entry.get() != mkpass and len(password_change_entry.get())>6:
+        elif new_password == new_password_entry.get() != mkpass and len(new_password)>6:
             with open(filepath, 'r+') as file:
                 lines = file.readlines()
                 file.seek(0)
-                print(password_change_entry.get())
                 for line in lines:
-                    if len(line.split()) > 1 and line.split()[0] == 'passw' and line.split()[1] == mkpass:
+                    if len(line.split()) > 1 and line.split()[0] == '#passw' and line.split()[1] == mkpass:
                         continue
                     file.write(line)
                 file.truncate()
-                file.write(f"\npassw {password_change_entry.get()}")
-            mkpass= password_change_entry.get()
-            messagebox.showinfo("Successful", f"Changed password to {password_change_entry.get()}")
+                file.write(f"\n#passw {new_password}")
+            mkpass= new_password
+            messagebox.showinfo("Successful", f"Changed password to {new_password}")
         else:
-            messagebox.showerror("Error", f"Password more than 6 letter")
+            messagebox.showerror("Error", f"Password less than 6 letter")
 
 
-    change_password = ttk.Button(P_button_frame, text="Apply", command=change_password_en, bootstyle=ttk_theme)
-    change_password.pack(side=tk.LEFT,padx=10)
+    new_button_frame = ttk.Frame(P_button_frame)
+    new_button_frame.pack(side=tk.TOP, fill=tk.X , pady=10,padx=10)
+
+    label_new = ttk.Label(new_button_frame , text="Retype")
+    label_new.pack(side=tk.LEFT,padx=35)
+
+    password_change_entry = ttk.Entry(new_button_frame, font=("Helvetica", 12))
+    password_change_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+
+    change_password_two = ttk.Button(new_button_frame, text="Apply", command=change_password_en_two, bootstyle=ttk_theme)
+    change_password_two.pack(side=tk.RIGHT,padx=10)
 
     T_button_frame = ttk.Frame(frame)
     T_button_frame.pack(fill=tk.X)
 
     label = ttk.Label(T_button_frame , text="Force running background")
-    label.pack(side=tk.LEFT,padx=20)
+    label.pack(side=tk.LEFT,padx=20,pady=5)
 
     def toggle_checkmark():
         value = check_var.get()
@@ -268,11 +287,12 @@ def setting():
     # Create a checkbutton with a checkmark
     check_var = tk.IntVar(value=0)
     checkmark = ttk.Checkbutton(T_button_frame,variable=check_var,onvalue=1,offvalue=0,command=toggle_checkmark,bootstyle="square-toggle")
-    checkmark.pack(padx=0)
+    checkmark.pack(padx=0,pady=5,side=tk.LEFT)
 
 
     def get_db():
         global db
+        db=[]
         dbtxt="database.txt"
         with open(dbtxt, 'r+') as file:
             for line in file:
@@ -283,16 +303,65 @@ def setting():
         for i in range(len(db)):
             block_ip(db[i]+" #DATABASE")
         update_table()
-    # Create a checkbutton with a checkmark
-    change_password = ttk.Button(T_button_frame, text="USE DATABASE", command=toggle_database, bootstyle=ttk_theme)
-    change_password.pack(side=tk.LEFT,padx=10)
-    # Show information
-    info = tk.messagebox.showinfo("Information", "KHKT PROJECT \n Project for educational purposes")
-
 
     # add a button to destroy the frame
     button_destroy = ttk.Button(frame, text="CLOSE", command=frame.destroy)
     button_destroy.pack(side=tk.BOTTOM,fill=tk.BOTH)
+    # Button Import Data
+
+    database=ttk.Frame(frame)
+    database.pack(pady=10,side=tk.BOTTOM)
+
+    database_off = ttk.Button(database, text="Use Database", command=toggle_database, bootstyle=ttk_theme)
+    database_off.pack(pady=10,padx=4,side=tk.LEFT)
+
+    def import_database():
+        global cur_db
+        global db
+        db=[]
+        file_path = filedialog.askopenfilename()
+        if file_path:
+            show_database.config(text="Current database : "+file_path)
+            with open(file_path, 'r') as file:
+                for line in file:
+                    db.append(line.strip())
+        tk.messagebox.showinfo("Information", "Database imported , Press Use Database to Apply It")
+        update_table()
+
+    database_op = ttk.Button(database, text="Import Database", command=import_database, bootstyle=ttk_theme)
+    database_op.pack(pady=10,side=tk.RIGHT)
+
+    #Get database Online
+
+    db_on= ttk.Frame(frame)
+    db_on.pack(side=tk.BOTTOM)
+
+    show_database = ttk.Label(db_on, text="Current database : Inprogramme") 
+    show_database.pack()
+
+    label_db = ttk.Label(db_on , text="IP Get Database Online")
+    label_db.pack(padx=12,side=tk.LEFT)
+
+    url = "https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/database.txt"
+
+    db_entry = ttk.Entry(db_on, font=("Helvetica", 12))
+    db_entry.insert(0, url)
+    db_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+    def get_db_online():
+        url=db_entry.get()
+        response = requests.get(url)
+        if response.status_code == 200:
+            global db
+            db=[]
+            file_content = response.text
+            db=file_content.splitlines()
+            show_database.config(text="Current database : Online Database")
+            tk.messagebox.showinfo("Information", "Database imported , Press Use Database to Apply It")
+        else:
+            tk.messagebox.showerror("Error", f"Error: {response.status_code} \n An Ip Invalid Or Dead")
+            print(f"Error: {response.status_code}")
+    db_ap = ttk.Button(db_on, text="Apply", command=get_db_online, bootstyle=ttk_theme)
+    db_ap.pack(side=tk.LEFT,padx=10)
 
 def exit_program(event):
     root.destroy()  # Close the Tkinter window
@@ -307,7 +376,7 @@ button_frame.pack( fill=tk.X,padx=10 , pady=10)
 
 
 label = ttk.Label(button_frame , text="Enter IP Address:")
-label.pack(side=tk.LEFT , padx=12)
+label.pack(side=tk.LEFT , padx=18)
 
 
 entry = ttk.Entry(button_frame, font=("Helvetica", 12))
@@ -326,8 +395,8 @@ delete_button.pack(side=tk.LEFT)
 
 
 # Setting
-setting_button = ttk.Button(button_frame_inner, text="S", command=setting , bootstyle=ttk_theme)
-setting_button.pack(side=tk.LEFT,padx=10)
+setting_button = ttk.Button(button_frame_inner, text="⚙", command=setting , bootstyle=ttk_theme)
+setting_button.pack(side=tk.LEFT,padx=6)
 
 
 # # Time Selection
@@ -344,6 +413,12 @@ setting_button.pack(side=tk.LEFT,padx=10)
 # minute_combobox.current(0)
 # minute_combobox.pack()
 # CREATE RADIO
+def select_radio_button(button):
+    for btn in [radio_button1, radio_button2]:
+        if btn != button:
+            btn.invoke() # Unselects the radio button
+    button.invoke() # Selects the desired radio button
+
 var = tk.StringVar(value=on_or_off(ip_google_filter,"o"))
 
 var2 = tk.StringVar(value=on_or_off(ip_youtube_filter,"o"))
@@ -370,17 +445,29 @@ radio_button3.pack()
 radio_button4 = ttk.Radiobutton(radio_frame, text="Off", variable=var2, value="off", command=handle_selection2)
 radio_button4.pack()
 
+def clear_all_ip():
+    if messagebox.askokcancel("Confirm", "Warning : All Ip Will Be Delete ! \n Are you sure you want to clear all IP?"):
+        with open(filepath, 'r+') as file:
+            file.truncate()
+            file.write(f"\n#passw {mkpass}")
+        tk.messagebox.showinfo("Information", "Reset Ip")
+        select_radio_button(radio_button1)
+        select_radio_button(radio_button4)
+
+clear_button = ttk.Button(radio_frame, text="Reset Ip", command=clear_all_ip, bootstyle=ttk_theme)
+clear_button.pack(side=tk.BOTTOM,padx=10)
+
 # Create TABLE 
 
 
 table_frame = ttk.Frame(root)
-table_frame.pack(fill=tk.BOTH, expand=True)
+table_frame.pack(fill=tk.BOTH, expand=True,padx=10 ,pady=12)
 
 table_columns = ('IP', 'Website', 'Description')
 table = ttk.Treeview(table_frame, columns=table_columns ,)
 
 # Set the column widths
-table.column('#0', width=25)
+table.column('#0', width=18)
 table.column('IP', width=50)
 table.column('Website', width=100)
 table.column('Description', width=100)
@@ -390,7 +477,17 @@ table.heading('IP', text='IP')
 table.heading('Website', text='Website')
 table.heading('Description', text='Description')
 
-table.pack(fill=tk.BOTH, expand=True,pady=10,padx=16)
+# Create a separate frame for the table and the scrollbar
+# Add the table and the scrollbar to the new frame
+table.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+# Create a vertical scrollbar
+v_scrollbar = ttk.Scrollbar(table_frame, orient=tk.VERTICAL)
+v_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+# Configure the table to use the scrollbar
+table.config(yscrollcommand=v_scrollbar.set)
+v_scrollbar.config(command=table.yview)
 
 table.config(height=15)
 
@@ -399,20 +496,23 @@ update_table()
 
 
 # Password frame
-# password_frame = tk.Frame(root)
-# password_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
+password_frame = tk.Frame(root)
+password_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-# password_label = tk.Label(password_frame, text="Enter password: ")
-# password_label.pack()
+password_label = tk.Label(password_frame, text="KHKT PROJECT : Ip Block")
+password_label.pack()
 
-# password_entry = tk.Entry(password_frame, show="@")
-# password_entry.pack()
+password_label = tk.Label(password_frame, text="Enter password: ")
+password_label.pack()
 
-# submit_button = tk.Button(password_frame, text="Submit", command=check_password)
-# submit_button.pack(pady=10)
+password_entry = tk.Entry(password_frame, show="@")
+password_entry.pack()
+
+submit_button = tk.Button(password_frame, text="Submit", command=check_password)
+submit_button.pack(pady=10)
 
 # PURPOSE
-text_conner = tk.Label(root, text="project for educational purposes")
+text_conner = tk.Label(root, text="Ip Block, delta_test", justify="left")
 text_conner.place(anchor="sw", relx=0, rely=1)
 
 root.mainloop()
