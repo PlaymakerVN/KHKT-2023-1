@@ -6,16 +6,21 @@ import tkinter as tk
 from tkinter import ttk
 from ttkbootstrap import Style
 from tkinter import filedialog
-
+from tkinter import font
 from tkinter import messagebox
 
 
 root = tk.Tk()
-root.title("KHKT PROJECT")
-root.geometry("400x400")
+root.title("KHKT PROJECT : Ip Block")
+root.geometry("300x300")
 
 ttk_theme="superhero"
 # Styling
+new_font = font.Font(family="Helvetica", size=30, weight="bold")
+
+for widget in root.winfo_children():
+    widget.configure(font=new_font)
+
 style = Style(theme=ttk_theme)
 
 current_os=""
@@ -233,8 +238,8 @@ def setting():
     label_cur = ttk.Label(cur_button_frame , text="New Password")
     label_cur.pack(side=tk.LEFT,padx=10)
 
-    new_password_entry = ttk.Entry(cur_button_frame, font=("Helvetica", 12))
-    new_password_entry.pack(fill=tk.X,expand=True,padx=8)
+    new_password_entry = ttk.Entry(cur_button_frame, font=("Helvetica", 12),show="✵")
+    new_password_entry.pack(fill=tk.X,expand=True,padx=6)
 
 
     def change_password_en_two():
@@ -266,28 +271,28 @@ def setting():
     label_new = ttk.Label(new_button_frame , text="Retype")
     label_new.pack(side=tk.LEFT,padx=35)
 
-    password_change_entry = ttk.Entry(new_button_frame, font=("Helvetica", 12))
+    password_change_entry = ttk.Entry(new_button_frame, font=("Helvetica", 12),show="✵")
     password_change_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
 
     change_password_two = ttk.Button(new_button_frame, text="Apply", command=change_password_en_two, bootstyle=ttk_theme)
     change_password_two.pack(side=tk.RIGHT,padx=10)
 
-    T_button_frame = ttk.Frame(frame)
-    T_button_frame.pack(fill=tk.X)
+    # T_button_frame = ttk.Frame(frame)
+    # T_button_frame.pack(fill=tk.X)
 
-    label = ttk.Label(T_button_frame , text="Force running background")
-    label.pack(side=tk.LEFT,padx=20,pady=5)
+    # label = ttk.Label(T_button_frame , text="Force running background")
+    # label.pack(side=tk.LEFT,padx=20,pady=5)
 
-    def toggle_checkmark():
-        value = check_var.get()
-        if value == 1:
-            root.protocol("WM_DELETE_WINDOW", root.iconify())
-        # else:
-        #     root.protocol("WM_DELETE_WINDOW", root.withdraw())
-    # Create a checkbutton with a checkmark
-    check_var = tk.IntVar(value=0)
-    checkmark = ttk.Checkbutton(T_button_frame,variable=check_var,onvalue=1,offvalue=0,command=toggle_checkmark,bootstyle="square-toggle")
-    checkmark.pack(padx=0,pady=5,side=tk.LEFT)
+    # def toggle_checkmark():
+    #     value = check_var.get()
+    #     if value == 1:
+    #         root.protocol("WM_DELETE_WINDOW", root.iconify())
+    #     # else:
+    #     #     root.protocol("WM_DELETE_WINDOW", root.withdraw())
+    # # Create a checkbutton with a checkmark
+    # check_var = tk.IntVar(value=0)
+    # checkmark = ttk.Checkbutton(T_button_frame,variable=check_var,onvalue=1,offvalue=0,command=toggle_checkmark,bootstyle="square-toggle")
+    # checkmark.pack(padx=0,pady=5,side=tk.LEFT)
 
 
     def get_db():
@@ -461,10 +466,10 @@ clear_button.pack(side=tk.BOTTOM,padx=10)
 
 
 table_frame = ttk.Frame(root)
-table_frame.pack(fill=tk.BOTH, expand=True,padx=10 ,pady=12)
+table_frame.pack(fill=tk.BOTH, expand=True,padx=16 ,pady=14)
 
 table_columns = ('IP', 'Website', 'Description')
-table = ttk.Treeview(table_frame, columns=table_columns ,)
+table = ttk.Treeview(table_frame, columns=table_columns)
 
 # Set the column widths
 table.column('#0', width=18)
@@ -477,12 +482,10 @@ table.heading('IP', text='IP')
 table.heading('Website', text='Website')
 table.heading('Description', text='Description')
 
-# Create a separate frame for the table and the scrollbar
-# Add the table and the scrollbar to the new frame
 table.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
 # Create a vertical scrollbar
-v_scrollbar = ttk.Scrollbar(table_frame, orient=tk.VERTICAL)
+v_scrollbar = ttk.Scrollbar(table_frame, orient=tk.VERTICAL,bootstyle="round")
 v_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
 # Configure the table to use the scrollbar
@@ -500,19 +503,22 @@ password_frame = tk.Frame(root)
 password_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
 password_label = tk.Label(password_frame, text="KHKT PROJECT : Ip Block")
-password_label.pack()
+password_label.pack(padx=50)
 
 password_label = tk.Label(password_frame, text="Enter password: ")
 password_label.pack()
 
-password_entry = tk.Entry(password_frame, show="@")
+password_entry = tk.Entry(password_frame, show="✵")
 password_entry.pack()
 
-submit_button = tk.Button(password_frame, text="Submit", command=check_password)
+submit_button = tk.Button(password_frame, text="Ok", command=check_password)
 submit_button.pack(pady=10)
 
+exit_button = tk.Label(password_frame, text="Press ESC to exit")
+exit_button.pack(pady=50,side=tk.BOTTOM)
+
 # PURPOSE
-text_conner = tk.Label(root, text="Ip Block, delta_test", justify="left")
+text_conner = tk.Label(root, text="Ip Block, delta_test", justify="left",font=("Helvetica", 6))
 text_conner.place(anchor="sw", relx=0, rely=1)
 
 root.mainloop()

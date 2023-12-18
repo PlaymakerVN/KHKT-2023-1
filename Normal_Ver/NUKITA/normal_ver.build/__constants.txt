@@ -1,1 +1,0 @@
-{"__bytecode.const": {"input_size": 6573571, "blob_name": ".bytecode", "blob_size": 6551567}, "__constants.const": {"input_size": 1942, "blob_name": "", "blob_size": 795}, "module.__main__.const": {"input_size": 4954, "blob_name": "__main__", "blob_size": 2893}, "module.tkinter-preLoad.const": {"input_size": 406, "blob_name": "tkinter-preLoad", "blob_size": 188}, "total": 619}
