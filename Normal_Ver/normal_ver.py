@@ -1,8 +1,15 @@
 import os
 import time
-import requests
 
+import urllib.parse
+import requests
+from browser_history import browsers, generic, utils,core
+
+import json
 import tkinter as tk
+
+
+
 from tkinter import ttk
 from ttkbootstrap import Style
 from tkinter import filedialog
@@ -44,7 +51,50 @@ def detect_system():
         current_os = "Linux"
         filepath = "/etc/hosts"
 detect_system()
+def create_file(file_name):
+    try:
+        with open(file_name, 'x') as file:
+            print(f"File {file_name} created successfully.")
+    except FileExistsError:
+        print(f"File {file_name} already exists.")
 
+# Now, let's call this function with the desired file name
+create_file("database.txt")
+def flush_dns():
+    try:
+        if current_os == "Windows" :
+            os.system('ipconfig /flushdns')
+        elif current_os == "Linux":
+            os.system('sudo service network-manager restart')
+        tk.messagebox.showinfo("Information", "DNS FLUSH")
+    except Exception as e:
+        messagebox.showerror("Error", f"An error occurred while flush dns : {str(e)}")
+
+def solve_url_his(input_url):
+    parsed_url = urllib.parse.urlparse(input_url)
+    result = parsed_url.netloc
+    return result
+
+url_history=[]
+time_history=[]
+head_history=[]
+def get_history():
+    global history
+    # SAVE HIS
+    domain_connected = core.get_history()
+    domain_connected.save("history_file", output_format="json")
+    f = open('history_file')
+    data = json.load(f)
+    print("SAVED HISTORY BROWSERS")
+    a=[]
+    # FILTER HIS
+    dataArray=data['history']
+    for i in range(len(dataArray)):
+        time_history.append(data['history'][i]['Timestamp'])
+        url_history.append(solve_url_his(data['history'][i]['URL']))
+        head_history.append(data['history'][i]['Title'])
+        # Remove duplcated
+        c= list(set(a))
 
 def read_hosts_file():
     try:
@@ -76,11 +126,14 @@ def check_password():
     entered_password = str(password_entry.get())
     if entered_password == mkpass:
         password_frame.destroy()
-        root.geometry("600x500")
+        root.geometry("700x600")
     else:
         messagebox.showerror("Error", "Incorrect password!")
 #UPDATE TABLE
+website_blocked=[]
 def update_table():
+    global website_blocked
+    website_blocked=[]
     ip_addresses = read_hosts_file()
     table.delete(*table.get_children())
     row_column=0
@@ -90,10 +143,12 @@ def update_table():
             if len(items) == 3:
                 row_column=row_column+1
                 ip_address, website, blocked = items
+                website_blocked.append(website)
                 table.insert('', 'end', text=row_column,values=[ip_address, website, blocked])
             elif len(items) == 2:
                 row_column=row_column+1
                 ip_address, website = items
+                website_blocked.append(website)
                 table.insert('', 'end',text=row_column, values=[ip_address, website, " "])
 
 def handle_selection():
@@ -169,7 +224,6 @@ def block_ip(a):
                     print("ADD",ip_address)
                     with open(filepath, 'a') as file:
                         file.write(f"\n127.0.0.1 {ip_address}")
-                    messagebox.showinfo("Success", f"The IP address {ip_address} has been blocked.")
                     entry.delete(0, 'end')
                     update_table()
                 except Exception as e:
@@ -381,7 +435,7 @@ button_frame.pack( fill=tk.X,padx=10 , pady=10)
 
 
 label = ttk.Label(button_frame , text="Enter IP Address:")
-label.pack(side=tk.LEFT , padx=18)
+label.pack(side=tk.LEFT , padx=23)
 
 
 entry = ttk.Entry(button_frame, font=("Helvetica", 12))
@@ -391,8 +445,21 @@ entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
 button_frame_inner = ttk.Frame(button_frame)
 button_frame_inner.pack(side=tk.RIGHT)
 
+def button_blockip():
+    if entry.get() == "":
+        selected_items = new_table.selection()
+        for item in selected_items:
+            if not new_table.exists(item):
+                continue
+            item_text = new_table.item(item)['values'][0]
+            print(item_text)
+            block_ip(item_text)
+        messagebox.showinfo("Success", f"IP address has been blocked.")
+    else:
+        block_ip(entry.get())
+        messagebox.showinfo("Success", f"IP address {entry.get()} has been blocked.")
 
-block_button = ttk.Button(button_frame_inner, text="Block IP", command=lambda: block_ip(entry.get()), bootstyle=ttk_theme)
+block_button = ttk.Button(button_frame_inner, text="Block IP", command=button_blockip, bootstyle=ttk_theme)
 block_button.pack(side=tk.LEFT,padx=10)
 
 delete_button = ttk.Button(button_frame_inner, text="Delete IP", command=lambda: delete_ip(0,table.selection()) ,bootstyle=ttk_theme)
@@ -459,11 +526,20 @@ def clear_all_ip():
         select_radio_button(radio_button1)
         select_radio_button(radio_button4)
 
-clear_button = ttk.Button(radio_frame, text="Reset Ip", command=clear_all_ip, bootstyle=ttk_theme)
+
+clear_button = ttk.Button(radio_frame, text="  Reset Ip  ", command=clear_all_ip, bootstyle=ttk_theme)
 clear_button.pack(side=tk.BOTTOM,padx=10)
 
-# Create TABLE 
+clear_button = ttk.Button(radio_frame, text="Flush Dns", command=flush_dns, bootstyle=ttk_theme)
+clear_button.pack(side=tk.BOTTOM,pady=10)
 
+
+# Create TABLE 
+def open_file():
+    with open('database.txt', 'r') as file:
+        content = file.read()
+    # Insert content into new table
+    new_table.insert('', 'end', values=(content,))
 
 table_frame = ttk.Frame(root)
 table_frame.pack(fill=tk.BOTH, expand=True,padx=16 ,pady=14)
@@ -493,7 +569,59 @@ table.config(yscrollcommand=v_scrollbar.set)
 v_scrollbar.config(command=table.yview)
 
 table.config(height=15)
+# Create a new frame for the second table
+new_table_frame = ttk.Frame(root)
+new_table_frame.pack(fill=tk.BOTH, expand=True, padx=16, pady=14)
 
+# Create a new table
+new_table_columns = ('URL','Title','Time')
+new_table = ttk.Treeview(new_table_frame, columns=new_table_columns)
+
+# Set the column widths
+new_table.column('#0', width=18)
+new_table.column('URL', width=50)
+new_table.column('Title', width=100)
+new_table.column('Time', width=100)
+# Create the table headings
+new_table.heading('#0', text='No.')
+new_table.heading('URL', text='URL')
+new_table.heading('Title', text='Title')
+new_table.heading('Time', text='Time')
+new_table.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+# Create a vertical scrollbar for the new table
+new_v_scrollbar = ttk.Scrollbar(new_table_frame, orient=tk.VERTICAL, bootstyle="round")
+new_v_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+# Configure the new table to use the scrollbar
+new_table.config(yscrollcommand=new_v_scrollbar.set)
+new_v_scrollbar.config(command=new_table.yview)
+
+new_table.config(height=15)
+get_history()
+def update_his():
+    a=0
+    for i, item in enumerate(url_history, start=0):
+        new_table.insert('', i, text=a+1, values=[url_history[a],head_history[a],time_history[a]])
+        a=a+1
+
+def refresh_all():
+    global url_history
+    global time_history
+    global head_history
+
+    url_history=[]
+    time_history=[]
+    head_history=[]
+
+    update_his()
+    get_history()
+    messagebox.showinfo("Success", f"Ip Blocked Refresh !,\n {len(website_blocked)} website blocked has been loaded.\n History refresh ! \n {len(url_history)} url has been loaded.")
+
+his_button = ttk.Button(radio_frame, text="  Refresh  ", command=refresh_all, bootstyle=ttk_theme)
+his_button.pack(side=tk.BOTTOM,pady=10)
+update_his()
+# Call the open_file function to read the 'tex.txt' file and display its content in the new table
 update_table()
 
 
@@ -515,7 +643,7 @@ submit_button = tk.Button(password_frame, text="Ok", command=check_password)
 submit_button.pack(pady=10)
 
 exit_button = tk.Label(password_frame, text="Press ESC to exit")
-exit_button.pack(pady=50,side=tk.BOTTOM)
+exit_button.pack(pady=10,side=tk.BOTTOM)
 
 # PURPOSE
 text_conner = tk.Label(root, text="Ip Block, delta_test", justify="left",font=("Helvetica", 6))
