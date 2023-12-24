@@ -6,7 +6,7 @@
         <meta name="description" content="KHKT - LXT" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
 <!--             <div id="title">
@@ -37,12 +37,11 @@
             <div class="console-box" id="console-box">
                 <div id="wrapper-1">
                     <div id="info-d">
-                        <p>IP : 192.168.1.1</p>
-                        <p>OS : Linux</p>
+<!--                         <p>OS : Linux</p>
                         <p>Status : Active (Updated 2s Ago)</p>
                         <p>Time/Up : 2s/Up</p>
                         <p>Time connected : 67s</p>
-                        <p>Version : TESTING_11</p>
+                        <p>Version : TESTING_11</p> -->
                     </div>
                 </div>
                 <div id="wrapper-2">
@@ -67,6 +66,7 @@
             </div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
+            id_s=0;
             // jQuery Document 
             $(document).ready(function () {
                 $("#intro_main").click(function() {
@@ -82,6 +82,7 @@
                 $("#submitmsg").click(function () {
                     var clientmsg = $("#usermsg").val();
                     $.post("post.php", { text: clientmsg });
+                    loadHistory(id_s)
                     $("#usermsg").val("");
                     return false;
                 });
@@ -110,10 +111,10 @@
                         }
                     });
                 }
-                function loadHistory() {
+                function loadHistory(i) {
                     var oldscrollHeight = $("#history")[0].scrollHeight - 20; //Scroll height before the request 
                     $.ajax({
-                        url: "history.html",
+                        url: "history."+i+".html",
                         cache: false,
                         success: function (html) {
                             $("#history").html(html); //Insert chat log into the #chatbox div 
@@ -126,10 +127,11 @@
                         url: "blacklist.html",
                         cache: false,
                         success: function (html) {
-                            $("#blacklist").html(html); //Insert chat log into the #chatbox div 
+                            $("#blacklist").html(html.replace(/\n/g, "<br><hr>")); //Insert chat log into the #chatbox div 
                         }
                     });
                 }
+                setInterval(loadBlacklist,2500);
                 function loadConnected() {
                     $.ajax({
                       url: 'devicecon.html',
@@ -145,6 +147,10 @@
                             $('#console-box').addClass('console-box-ac').removeClass('console-box');
                             $('#list').addClass('list-ac').removeClass('list');
                             anchor.className = 'active';
+
+                            id_s=anchor.id; // Set the value of id_s inside the event listener
+
+                            loadHistory(anchor.id) // pass the id of the clicked element
                         }));
                       },
                       error: function() {
@@ -172,7 +178,7 @@
                 setInterval(loadLog, 2500);
                 setInterval(getInformation,2500);
                 setInterval(loadBlacklist,2500);
-                setInterval(loadHistory,2500);
+                // setInterval(loadHistory,2500);
                 // $("#exit").click(function () {
                 //     var exit = confirm("Are you sure you want to end the session?");
                 //     if (exit == true) {

@@ -18,7 +18,7 @@ def POST(type,content):
     r = requests.post(url=server,data={type:content})
     # print("POST : "+content)
 def post_info():
-     r = requests.post(url=server,data={"new_connect":get_local_ip()})
+     r = requests.post(url=server,data={"new_connect":"123123.123"})
      print(r.text)
     # POST("new_connect",utils.get_platform_name())
 def get_hosts_path():
