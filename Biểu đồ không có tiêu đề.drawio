@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-24T09:56:43.858Z" agent="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 EdgA/120.0.0.0" etag="1l53Oufwfl6e0uv2h6HC" version="22.1.11" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-24T09:58:52.609Z" agent="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 EdgA/120.0.0.0" etag="o3i-EiAcq2V01JfCdL3H" version="22.1.11" type="github">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
     <mxGraphModel dx="384" dy="460" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
@@ -15,7 +15,7 @@
             <mxPoint x="480" y="250" as="sourcePoint" />
             <Array as="points">
               <mxPoint x="480" y="380" />
-              <mxPoint x="380" y="380" />
+              <mxPoint x="320" y="380" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -55,7 +55,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-9" value="filepath = &quot;/etc/hosts&quot;" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" parent="1" vertex="1">
-          <mxGeometry x="320" y="400" width="120" height="60" as="geometry" />
+          <mxGeometry x="245" y="400" width="150" height="60" as="geometry" />
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-30" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.074;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;exitPerimeter=0;" parent="1" source="h2GykC5T0tP8Py9upbgZ-25" target="h2GykC5T0tP8Py9upbgZ-29" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -122,13 +122,18 @@
             <mxPoint x="-21" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="qdycnBR3RgYotoGEicHb-7" value="Đúng" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#457B9D;fontColor=default;labelBackgroundColor=none;" parent="1" source="h2GykC5T0tP8Py9upbgZ-43" target="qdycnBR3RgYotoGEicHb-6" edge="1">
-          <mxGeometry y="30" relative="1" as="geometry">
+        <mxCell id="qdycnBR3RgYotoGEicHb-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#457B9D;fontColor=default;labelBackgroundColor=none;" parent="1" source="h2GykC5T0tP8Py9upbgZ-43" target="qdycnBR3RgYotoGEicHb-6" edge="1">
+          <mxGeometry x="-0.0005" y="40" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="480" y="1030" />
               <mxPoint x="480" y="1030" />
             </Array>
             <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gaXOzAtIGX_iqaC9NlRh-3" value="Đúng" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#1D3557;" vertex="1" connectable="0" parent="qdycnBR3RgYotoGEicHb-7">
+          <mxGeometry x="-0.0617" y="7" relative="1" as="geometry">
+            <mxPoint x="23" y="-9" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-43" value="mk == pass" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;" parent="1" vertex="1">
