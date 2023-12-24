@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-24T09:58:52.609Z" agent="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 EdgA/120.0.0.0" etag="o3i-EiAcq2V01JfCdL3H" version="22.1.11" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-24T10:14:54.524Z" agent="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 EdgA/120.0.0.0" etag="VVRiWC0ys-4IU853lrju" version="22.1.11" type="github">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
     <mxGraphModel dx="384" dy="460" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
@@ -108,7 +108,7 @@
         <mxCell id="h2GykC5T0tP8Py9upbgZ-41" value="Nhập mk" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;" parent="1" vertex="1">
           <mxGeometry x="420" y="850" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="h2GykC5T0tP8Py9upbgZ-44" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" parent="1" source="h2GykC5T0tP8Py9upbgZ-43" target="h2GykC5T0tP8Py9upbgZ-41" edge="1">
+        <mxCell id="h2GykC5T0tP8Py9upbgZ-44" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="h2GykC5T0tP8Py9upbgZ-43" target="h2GykC5T0tP8Py9upbgZ-41" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="365" y="980" />
@@ -119,7 +119,7 @@
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-45" value="Sai" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" parent="h2GykC5T0tP8Py9upbgZ-44" vertex="1" connectable="0">
           <mxGeometry x="-0.1227" y="4" relative="1" as="geometry">
-            <mxPoint x="-21" as="offset" />
+            <mxPoint x="-58" y="-54" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="qdycnBR3RgYotoGEicHb-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#457B9D;fontColor=default;labelBackgroundColor=none;" parent="1" source="h2GykC5T0tP8Py9upbgZ-43" target="qdycnBR3RgYotoGEicHb-6" edge="1">
