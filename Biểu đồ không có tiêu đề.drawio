@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-12-24T05:52:23.945Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="qAdE7PZjfgFElFAsBl47" version="22.1.11" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-24T06:18:45.296Z" agent="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 EdgA/120.0.0.0" etag="eODB6kOrdECy6Z-uiuMP" version="22.1.11" type="github">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
-    <mxGraphModel dx="771" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="362" dy="114" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -53,7 +53,7 @@
         <mxCell id="h2GykC5T0tP8Py9upbgZ-30" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" parent="1" source="h2GykC5T0tP8Py9upbgZ-25" target="h2GykC5T0tP8Py9upbgZ-29" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="h2GykC5T0tP8Py9upbgZ-35" value="Không có" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" parent="h2GykC5T0tP8Py9upbgZ-30" vertex="1" connectable="0">
+        <mxCell id="h2GykC5T0tP8Py9upbgZ-35" value="Sai" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" parent="h2GykC5T0tP8Py9upbgZ-30" vertex="1" connectable="0">
           <mxGeometry x="-0.1556" y="4" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -61,13 +61,13 @@
         <mxCell id="h2GykC5T0tP8Py9upbgZ-32" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" parent="1" source="h2GykC5T0tP8Py9upbgZ-25" target="h2GykC5T0tP8Py9upbgZ-31" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="h2GykC5T0tP8Py9upbgZ-34" value="Có&lt;br&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" parent="h2GykC5T0tP8Py9upbgZ-32" vertex="1" connectable="0">
+        <mxCell id="h2GykC5T0tP8Py9upbgZ-34" value="Đúng" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" parent="h2GykC5T0tP8Py9upbgZ-32" vertex="1" connectable="0">
           <mxGeometry x="-0.2784" y="-1" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-25" value="Đọc filepath nếu có #pass trong file" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;" parent="1" vertex="1">
-          <mxGeometry x="362.5" y="620" width="235" height="80" as="geometry" />
+          <mxGeometry x="362.5" y="610" width="235" height="80" as="geometry" />
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-40" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" parent="1" source="h2GykC5T0tP8Py9upbgZ-29" target="h2GykC5T0tP8Py9upbgZ-38" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -79,7 +79,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-31" value="Pass = (#pass {mật khẩu} )" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" parent="1" vertex="1">
-          <mxGeometry x="560" y="700" width="120" height="60" as="geometry" />
+          <mxGeometry x="562.5" y="710" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-42" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" parent="1" source="h2GykC5T0tP8Py9upbgZ-38" target="h2GykC5T0tP8Py9upbgZ-41" edge="1">
           <mxGeometry relative="1" as="geometry" />
@@ -101,7 +101,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="h2GykC5T0tP8Py9upbgZ-45" value="Không đúng" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" parent="h2GykC5T0tP8Py9upbgZ-44" vertex="1" connectable="0">
+        <mxCell id="h2GykC5T0tP8Py9upbgZ-45" value="Sai" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" parent="h2GykC5T0tP8Py9upbgZ-44" vertex="1" connectable="0">
           <mxGeometry x="-0.1227" y="4" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -109,10 +109,15 @@
         <mxCell id="h2GykC5T0tP8Py9upbgZ-58" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#457B9D;fontColor=default;labelBackgroundColor=none;" parent="1" source="h2GykC5T0tP8Py9upbgZ-43" target="h2GykC5T0tP8Py9upbgZ-47" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="cbIbSpQTOKOPC53BZwha-1" value="Đúng" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="h2GykC5T0tP8Py9upbgZ-58">
+          <mxGeometry x="0.0391" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-43" value="mk == pass" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;" parent="1" vertex="1">
           <mxGeometry x="390" y="940" width="180" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="iWrpe9zokNEYGkXYwQCP-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="h2GykC5T0tP8Py9upbgZ-47">
+        <mxCell id="iWrpe9zokNEYGkXYwQCP-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" parent="1" source="h2GykC5T0tP8Py9upbgZ-47" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="480" y="1160" as="targetPoint" />
           </mxGeometry>
@@ -132,7 +137,7 @@
         <mxCell id="h2GykC5T0tP8Py9upbgZ-55" value="Nhập các thư viện&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" parent="1" vertex="1">
           <mxGeometry x="420" y="180" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="iWrpe9zokNEYGkXYwQCP-3" value="Kết thúc phần mềm khi bấm nút thoát" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#457B9D;fontColor=#1D3557;fillColor=#A8DADC;" vertex="1" parent="1">
+        <mxCell id="iWrpe9zokNEYGkXYwQCP-3" value="Kết thúc phần mềm khi bấm nút thoát" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#457B9D;fontColor=#1D3557;fillColor=#A8DADC;" parent="1" vertex="1">
           <mxGeometry x="420" y="1160" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
