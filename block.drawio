@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-31T11:03:46.201Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="3tzJ7HvWJiYXrZM93CXy" version="22.1.16" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-31T11:04:34.699Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="49hy7AstJKPkK5_Fyu5V" version="22.1.16" type="github">
   <diagram name="Trang-1" id="ErwiorRDN-wNK83X_GED">
     <mxGraphModel dx="1028" dy="716" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -71,7 +71,7 @@
         <mxCell id="jO5qIPyX8GDgJjrYHzWO-36" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#457B9D;fontColor=#1D3557;fillColor=#A8DADC;" edge="1" parent="1" source="jO5qIPyX8GDgJjrYHzWO-9" target="jO5qIPyX8GDgJjrYHzWO-24">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="jO5qIPyX8GDgJjrYHzWO-9" value="ip_address có trong&lt;br&gt;&amp;nbsp;file hosts" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+        <mxCell id="jO5qIPyX8GDgJjrYHzWO-9" value="ip_address có trong&lt;br&gt;&amp;nbsp;file_path" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
           <mxGeometry x="280" y="440" width="160" height="80" as="geometry" />
         </mxCell>
         <mxCell id="jO5qIPyX8GDgJjrYHzWO-19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="jO5qIPyX8GDgJjrYHzWO-18">
