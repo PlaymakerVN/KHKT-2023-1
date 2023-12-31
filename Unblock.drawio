@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-31T11:03:49.354Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="cjpFTttNkKj6ReGbaTh1" version="22.1.16" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-31T11:04:37.211Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="RTDT79S3a5YjhBouQ8iG" version="22.1.16" type="github">
   <diagram name="Trang-1" id="3MHq3e8uxHSeCojH_CD0">
     <mxGraphModel dx="1186" dy="826" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -40,7 +40,7 @@
             <mxPoint x="2" y="-19" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="IOJXYS6W1uLF5T40510P-18" value="Nếu ip_address có trong file hosts" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+        <mxCell id="IOJXYS6W1uLF5T40510P-18" value="&amp;nbsp;ip_address có trong&amp;nbsp;&lt;br&gt;file_path" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
           <mxGeometry x="280" y="440" width="160" height="80" as="geometry" />
         </mxCell>
         <mxCell id="IOJXYS6W1uLF5T40510P-19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-20">
