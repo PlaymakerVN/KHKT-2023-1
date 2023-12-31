@@ -1,9 +1,113 @@
-<mxfile host="app.diagrams.net" modified="2023-12-31T10:33:00.806Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" version="22.1.16" etag="UBb5jnI1y5KMA1x3hIfk" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-31T10:33:18.219Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="pwEsU_NKcZsDskaDh3f_" version="22.1.16" type="github">
   <diagram name="Trang-1" id="3MHq3e8uxHSeCojH_CD0">
-    <mxGraphModel>
+    <mxGraphModel dx="1598" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="IOJXYS6W1uLF5T40510P-1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-2" target="IOJXYS6W1uLF5T40510P-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-2" value="Bắt đầu" style="ellipse;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="80" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-4" target="IOJXYS6W1uLF5T40510P-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-4" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;ip_address = a&lt;br&gt;(a là dịa chỉ nhập hoặc&lt;br&gt;từng dòng file database&amp;nbsp;&lt;br&gt;&amp;nbsp;hoặc lịch sử đã chọn)&lt;/font&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="320" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.875;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;exitPerimeter=0;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-9" target="IOJXYS6W1uLF5T40510P-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-6" value="Sai" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" vertex="1" connectable="0" parent="IOJXYS6W1uLF5T40510P-5">
+          <mxGeometry x="-0.35" y="-1" relative="1" as="geometry">
+            <mxPoint x="-96" y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.045;exitY=0.553;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;exitPerimeter=0;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-9" target="IOJXYS6W1uLF5T40510P-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="287" y="600" />
+              <mxPoint x="520" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-8" value="Đúng" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" vertex="1" connectable="0" parent="IOJXYS6W1uLF5T40510P-7">
+          <mxGeometry x="-0.2833" y="-1" relative="1" as="geometry">
+            <mxPoint x="98" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-9" value="re.match&lt;br&gt;(r&#39;\d+\.\d+\.\d+\.\d+&#39;,&lt;br&gt;ip_address)" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="560" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360.0000000000002" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-11" value="Viết vào file_hosts:&lt;br&gt;&quot;127.0.0.1&quot;+ip_address" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="120" y="640" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="360" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-13" value="Viết vào file_hosts:&lt;br&gt;ip_address" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="440" y="640" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-18" target="IOJXYS6W1uLF5T40510P-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-15" value="Sai" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" vertex="1" connectable="0" parent="IOJXYS6W1uLF5T40510P-14">
+          <mxGeometry x="-0.1974" y="1" relative="1" as="geometry">
+            <mxPoint x="39" y="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-18" target="IOJXYS6W1uLF5T40510P-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-17" value="Đúng" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;rounded=1;" vertex="1" connectable="0" parent="IOJXYS6W1uLF5T40510P-16">
+          <mxGeometry x="-0.4499" y="-1" relative="1" as="geometry">
+            <mxPoint x="-19" y="-19" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-18" value="Nếu ip_address có trong file hosts" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="280" y="440" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="359.57894736842104" y="920" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-20" value="Thông báo thành công" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="280" y="800" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-21" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-22" target="IOJXYS6W1uLF5T40510P-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-22" value="Làm mới bảng hiển thị &lt;br&gt;địa chỉ chặn" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="280" y="920" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-23" value="&amp;nbsp;Kết thúc" style="ellipse;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="1040" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-24" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-25" target="IOJXYS6W1uLF5T40510P-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-25" value="Thông báo lỗi" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="-80" y="640" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-26" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;strokeColor=#457B9D;fontColor=#1D3557;fillColor=#A8DADC;" edge="1" parent="1" source="IOJXYS6W1uLF5T40510P-27" target="IOJXYS6W1uLF5T40510P-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="IOJXYS6W1uLF5T40510P-27" value="Nhận file_path" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;" vertex="1" parent="1">
+          <mxGeometry x="280" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
