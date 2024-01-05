@@ -1,35 +1,10 @@
-import tkinter as tk
-from tkinter import ttk
-import locale
-from PIL import Image, ImageTk
+import subprocess
+import os 
+def open_docx_file(file_path):
+    if os.name == 'nt': # Windows
+        os.startfile(file_path)
+    else: # MacOS and Linux
+        subprocess.run(['open', file_path] if os.name == 'posix' else ['start', file_path])
 
-def change_to_language():
-    language = locale.getdefaultlocale()[0]
-    if language == 'vi_VN':
-        label.config(text="Nhấn vào nút dưới để chuyển đổi ngôn ngữ")
-        button1.config(text="Việt Nam", image=vietnamese_flag, compound=tk.LEFT)
-        button2.config(text="Anh", image=english_flag, compound=tk.LEFT)
-    else:
-        label.config(text="Click the button below to change the language")
-        button1.config(text="Vietnamese", image=vietnamese_flag, compound=tk.LEFT)
-        button2.config(text="English", image=english_flag, compound=tk.LEFT)
-
-root = tk.Tk()
-root.title("Ngôn ngữ ứng dụng")
-
-label = ttk.Label(root, text="Click the button below to change the language")
-label.pack(pady=10)
-
-vietnamese_flag = ImageTk.PhotoImage(Image.open("vietnamese_flag.png"))
-english_flag = ImageTk.PhotoImage(Image.open("english_flag.png"))
-
-button1 = ttk.Button(root, text="Vietnamese", command=change_to_language)
-button1.pack(pady=5)
-
-button2 = ttk.Button(root, text="English", command=change_to_language)
-button2.pack(pady=5)
-
-change_to_language()
-
-root.mainloop()
-
+# Example usage
+open_docx_file('text.docx')

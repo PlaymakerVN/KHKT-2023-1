@@ -8,6 +8,8 @@ from browser_history import browsers, generic, utils,core
 
 import socket
 import json
+import re
+
 from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import ttk
@@ -18,8 +20,8 @@ from tkinter import messagebox
 
 import time
 root = tk.Tk()
-root.title("KHKT PROJECT : Ip Block")
-root.geometry("300x300")
+root.title("KHKT PROJECT : Weblock")
+root.geometry("250x200")
 
 ttk_theme="superhero"
 # Styling
@@ -137,18 +139,22 @@ def check_password():
     entered_password = str(password_entry.get())
     if entered_password == mkpass:
         password_frame.destroy()
-        root.geometry("700x600")
+        root.geometry("750x650")
     else:
         messagebox.showerror("Error", "Incorrect password!")
 #UPDATE TABLE
 website_blocked=[]
+line_filehost=[]
 def update_table():
     global website_blocked
+    global line_filehost
+    line_filehost=[]
     website_blocked=[]
     ip_addresses = read_hosts_file()
     table.delete(*table.get_children())
     row_column=0
     for line in ip_addresses:
+        line_filehost.append(line)
         if not line.startswith("#"):
             items = line.split()
             if len(items) == 3:
@@ -161,6 +167,7 @@ def update_table():
                 ip_address, website = items
                 website_blocked.append(website)
                 table.insert('', 'end',text=row_column, values=[ip_address, website, " "])
+    search_var.set("")
 
 def handle_selection():
     selected_value = var.get()
@@ -250,29 +257,54 @@ def block_ip(a):
 
     ip_address = a
     print(ip_address)
-
-    with open(filepath, 'r') as file:
-        content=file.read()
-        if ip_address not in content:
-            if "." in ip_address:
-                try:
-                    print("ADD",ip_address)
-                    with open(filepath, 'a') as file:
-                        file.write(f"\n127.0.0.1 {ip_address}")
-                    entry.delete(0, 'end')
-                    update_table()
-                    error=0
-                except Exception as e:
-                    messagebox.showerror("Error", f"An error occurred while blocking the IP address: {str(e)}")
-                    error_name="Error", f"ERROR {e}"
+    if re.match(r'\d+\.\d+\.\d+\.\d+', ip_address):
+        with open(filepath, 'r') as file:
+            content=file.read()
+            if ip_address not in content:
+                if "." in ip_address:
+                    try:
+                        print("ADD",ip_address)
+                        with open(filepath, 'a') as file:
+                            file.write(f"\n{ip_address}")
+                        entry.delete(0, 'end')
+                        update_table()
+                        error=0
+                    except Exception as e:
+                        messagebox.showerror("Error", f"An error occurred while blocking the IP address: {str(e)}")
+                        error_name="Error", f"ERROR {e}"
+                        error=1
+                else:
+                    error_name= "Error", f"Invalid IP, Form : www.website.com"
                     error=1
-            else:
-                error_name= "Error", f"Invalid IP, Form : www.website.com"
+            elif ip_address in content:
+                error_name ="Warning", "IP address already blocked."
                 error=1
-        elif ip_address in content:
-            error_name ="Warning", "IP address already blocked."
-            error=1
-    return "ok"
+        return "ok"
+    else:
+        with open(filepath, 'r') as file:
+            content=file.read()
+            if f"127.0.0.1 {ip_address.split()[0]}" not in content:
+                if "." in ip_address:
+                    try:
+                        print("ADD",ip_address)
+                        with open(filepath, 'a') as file:
+                            file.write(f"\n127.0.0.1 {ip_address}")
+                        entry.delete(0, 'end')
+                        update_table()
+                        error=0
+                    except Exception as e:
+                        messagebox.showerror("Error", f"An error occurred while blocking the IP address: {str(e)}")
+                        error_name="Error", f"ERROR {e}"
+                        error=1
+                else:
+                    error_name= "Error", f"Invalid IP, Form : www.website.com"
+                    error=1
+            elif ip_address in content:
+                error_name ="Warning", "IP address already blocked."
+                error=1
+        return "ok"
+    update_table()
+
 
 def delete_ip(a,b):
     selected_items = b
@@ -326,8 +358,11 @@ def server_conf():
     with open(filepath, 'r+') as file:
         content = file.read()
         if "#serv" in content:
-            get_server()
-            return True
+            try :
+                get_server()
+                return True
+            except Exception:
+                return False
         else:
             return False
 
@@ -339,6 +374,113 @@ print(server)
 print(server_ip)
 print(server_id)
 
+def toggle_database():
+    print(db)
+    for i in range(len(db)):
+        if re.match(r'\d+\.\d+\.\d+\.\d+', db[i]):
+            if "#" in db[i]:
+                block_ip(db[i])
+            else:
+                block_ip(db[i] + " #DATABASE")
+        else:
+            block_ip(db[i])
+            if "#" in db[i]:
+                block_ip(solve_url_his(db[i]))
+            else:
+                block_ip(solve_url_his(db[i])+" #DATABASE")
+    update_table()
+    messagebox.showinfo("Success", f"Database are using")
+
+def show_db_online():
+    def update_table_w():
+        table.delete(*table.get_children())
+        row_column=0
+        for idb in range(len(db)):
+            items = db[idb].split()
+            if len(items) == 3:
+                row_column=row_column+1
+                ip_address, website, blocked = items
+                table.insert('', 'end', text=row_column,values=[ip_address, solve_url_his(website), blocked])
+            elif len(items) == 2:
+                row_column=row_column+1
+                ip_address, website = items
+                table.insert('', 'end',text=row_column, values=[ip_address, solve_url_his(website), " "])
+            elif len(items) == 1:
+                row_column=row_column+1
+                website = items
+                table.insert('', 'end',text=row_column, values=["127.0.0.1", solve_url_his(website), " "])
+    def select_block_ds():
+        global error
+
+        selected_items = table.selection()
+        for item in selected_items:
+            if not table.exists(item):
+                continue
+            item_text = table.item(item)['values'][1]
+            print(item_text)
+            block_ip(item_text)
+        if error == 0:
+            messagebox.showinfo("Success", f"Ip address website has been blocked")
+        else:
+            messagebox.showerror("Error"), f"{error_name}"
+            error=0
+        update_table_w()
+    def del_db():
+        global db
+
+        selected_items = table.selection()
+        for item in selected_items:
+            if not table.exists(item):
+                continue
+            item_text = table.item(item)['values'][1]
+            db = [item for item in db if item_text not in item]
+            print(item_text)
+        update_table_w()
+
+
+    show_db_window = tk.Toplevel(root)
+    show_db_window.title("Database Show")
+    table_frame = ttk.Frame(show_db_window)
+    table_frame.pack(fill=tk.BOTH, expand=True,padx=15 ,pady=15)
+
+    table_columns = ('IP', 'Website', 'Description')
+    table = ttk.Treeview(table_frame, columns=table_columns)
+
+    # Set the column widths
+    table.column('#0', width=18)
+    table.column('IP', width=50)
+    table.column('Website', width=100)
+    table.column('Description', width=100)
+    # Create the table headings
+    table.heading('#0', text='No.')
+    table.heading('IP', text='IP')
+    table.heading('Website', text='Website')
+    table.heading('Description', text='Description')
+
+    table.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+    # Create a vertical scrollbar
+    v_scrollbar = ttk.Scrollbar(table_frame, orient=tk.VERTICAL,bootstyle="round")
+    v_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+    # Configure the table to use the scrollbar
+    table.config(yscrollcommand=v_scrollbar.set)
+    v_scrollbar.config(command=table.yview)
+
+    table.config(height=15)
+
+    block_button = ttk.Button(show_db_window, text="Block IP", command=select_block_ds, bootstyle=ttk_theme)
+    block_button.pack(side=tk.LEFT,padx=15,pady=10)
+
+    del_button = ttk.Button(show_db_window, text="Delete IP", command=del_db, bootstyle=ttk_theme)
+    del_button.pack(side=tk.LEFT,pady=10)
+
+    exit_button = ttk.Button(show_db_window, text="Block All IP", command=toggle_database,bootstyle=ttk_theme)
+    exit_button.pack(side=tk.RIGHT,padx=15,pady=10)
+
+    # refresh_button = ttk.Button(show_db_window, text="Refresh", command=update_table_w,bootstyle=ttk_theme)
+    # refresh_button.pack(side=tk.RIGHT,padx=15,pady=10)
+    update_table_w()
 def setting():
     # Show information
     info = tk.messagebox.showinfo("Information", f"KHKT PROJECT \n Current Os : {current_os} \n Hosts path: {filepath} \n Project for educational purposes")
@@ -346,13 +488,13 @@ def setting():
     frame = ttk.Frame(root,borderwidth=2, relief='solid')
     frame.place(relx=0.5, rely=0.5, relwidth=0.75, relheight=0.75, anchor='center')
 
-    label = ttk.Label(frame , text="SETTING",bootstyle="warning")
+    label = ttk.Label(frame , text="SETTINGS",bootstyle="warning")
     label.pack(pady=10,fill=tk.Y)
 
     P_button_frame = ttk.Frame(frame)
     P_button_frame.pack(side=tk.TOP, fill=tk.X )
 
-    label_pass = ttk.Labelframe(frame , text="PASSWORD CHANGE")
+    label_pass = ttk.Labelframe(frame , text="Password Change")
     label_pass.pack(side=tk.TOP, fill=tk.X ,padx=10 )
 
     cur_button_frame = ttk.Frame(label_pass)
@@ -485,23 +627,15 @@ def setting():
                 db.append(line.strip())
     get_db()
 
-    def toggle_database():
-        print(db)
-        for i in range(len(db)):
-            block_ip(solve_url_his(db[i])+" #DATABASE")
-        update_table()
-        messagebox.showinfo("Success", f"Database are using")
-
     # add a button to destroy the frame
     button_destroy = ttk.Button(frame, text="CLOSE", command=frame.destroy)
     button_destroy.pack(side=tk.BOTTOM,fill=tk.BOTH)
+
+
     # Button Import Data
 
     database=ttk.Frame(frame)
     database.pack(pady=10,side=tk.BOTTOM)
-
-    database_off = ttk.Button(database, text="Use Database", command=toggle_database, bootstyle=ttk_theme)
-    database_off.pack(pady=10,side=tk.LEFT)
 
 
     def export_database():
@@ -513,7 +647,7 @@ def setting():
         tk.messagebox.showinfo("Information", "All export")
 
     database_ex = ttk.Button(database, text="Export Database", command=export_database, bootstyle=ttk_theme)
-    database_ex.pack(pady=10,side=tk.RIGHT)
+    database_ex.pack(side=tk.RIGHT)
 
     def import_database():
         global cur_db
@@ -529,12 +663,22 @@ def setting():
         update_table()
 
     database_op = ttk.Button(database, text="Import Database", command=import_database, bootstyle=ttk_theme)
-    database_op.pack(pady=10,padx=4,side=tk.RIGHT)
+    database_op.pack(padx=4,side=tk.RIGHT)
 
+    # DISPLAY AND APPLY
+
+    database_us_frame=ttk.Frame(frame)
+    database_us_frame.pack(side=tk.BOTTOM)
+
+    db_s = ttk.Button(database, text="Show Database", command=show_db_online, bootstyle=ttk_theme)
+    db_s.pack(padx=4,side=tk.LEFT)
+
+    database_off = ttk.Button(database, text="Use Database", command=toggle_database, bootstyle=ttk_theme)
+    database_off.pack(side=tk.LEFT)
     #Get database Online
 
     db_on= ttk.Frame(frame)
-    db_on.pack(side=tk.BOTTOM)
+    db_on.pack(pady=5,side=tk.BOTTOM)
 
     show_database = ttk.Label(db_on, text="Current database : Inprogramme") 
     show_database.pack(pady=2)
@@ -560,7 +704,7 @@ def setting():
         else:
             tk.messagebox.showerror("Error", f"Error: {response.status_code} \n An Ip Invalid Or Dead")
             print(f"Error: {response.status_code}")
-    db_ap = ttk.Button(db_on, text="Apply", command=get_db_online, bootstyle=ttk_theme)
+    db_ap = ttk.Button(db_on, text="Get", command=get_db_online, bootstyle=ttk_theme)
     db_ap.pack(side=tk.LEFT,padx=10)
 
 def exit_program(event):
@@ -571,8 +715,10 @@ def get_ip():
         r = requests.post(url=server_ip,data={'get_blacklist':'blacklist'})
         getted_ip = r.text.split('\n')
     except Exception as e :
+        getted_ip=0
         print(e)
     return getted_ip
+
 def server_connect_start():
     if server == True:
         with open(filepath, 'r+') as file:
@@ -583,12 +729,11 @@ def server_connect_start():
                     file.write(f"\n127.0.0.1 {a[i]} #Server")
                     file.write(f"\n#passw {mkpass}")
                     file.write(f"\n#serv {server_ip} {server_id}")
+            update_table()
 
 def schedule_server_connect_start():
-    if server == True:
-        server_connect_start()
+    server_connect_start()
     root.after(10000, schedule_server_connect_start) # Runs after 10 seconds (10000 milliseconds)
-    update_table()
 
 root.bind("<Escape>", exit_program)
 
@@ -600,8 +745,9 @@ button_frame.pack( fill=tk.X,padx=10 , pady=10)
 
 
 label_ip = ttk.Label(button_frame , text="Enter IP Address:")
-label_ip.pack(side=tk.LEFT , padx=23)
+label_ip.pack(side=tk.LEFT , padx=12)
 
+# label_ip.pack(side=tk.LEFT , padx=18)
 
 entry = ttk.Entry(button_frame, font=("Helvetica", 12))
 entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
@@ -636,7 +782,7 @@ def button_blockip():
 
 
 block_button = ttk.Button(button_frame_inner, text="Block IP", command=button_blockip, bootstyle=ttk_theme)
-block_button.pack(side=tk.LEFT,padx=10)
+block_button.pack(side=tk.LEFT,padx=6)
 
 delete_button = ttk.Button(button_frame_inner, text="Unblock IP", command=lambda: delete_ip(0,table.selection()) ,bootstyle=ttk_theme)
 delete_button.pack(side=tk.LEFT)
@@ -655,15 +801,22 @@ language_dict = {
         'google_text':'Google Filter',
         'youtube_text':'Youtube Filter',
         'bing_text':'Bing Filter',
+        'refresh_button':'Refresh',
+        'reset_button':'Reset IP',
+        'searcH_i':'Search:',
     },
     'vietnamese': {
-        'label_ip':'Nhập địa chỉ IP:',
+        'label_ip':'Nhập địa chỉ IP: ',
         'block_button': 'Chặn IP',
         'delete_button': 'Bỏ Chặn IP',
         'setting_button': '⚙',
         'google_text':'Bộ lọc Google',
         'youtube_text':'Bộ lọc Youtube',
         'bing_text':'Bộ lọc Bing',
+        'refresh_button':' Làm mới ',
+        'reset_button':'Khôi phục',
+        'searcH_i':'Tìm kiếm:',
+        'clear_button':'Flush DNS',
 
     },
     # Add other languages here
@@ -678,9 +831,24 @@ def change_to_language():
 
     if current_language == 'english':
         change_language_button.config(image=english_flag)
-
+        table.heading('#0', text='No.')
+        table.heading('IP', text='IP')
+        table.heading('Website', text='Website')
+        table.heading('Description', text='Description')
+        new_table.heading('#0', text='No.')
+        new_table.heading('URL', text='URL')
+        new_table.heading('Title', text='Title')
+        new_table.heading('Time', text='Time')
     elif current_language == 'vietnamese':
         change_language_button.config(image=vietnamese_flag)
+        table.heading('#0', text='STT')
+        table.heading('IP', text='IP')
+        table.heading('Website', text='Website')
+        table.heading('Description', text='Ghi chú')
+        new_table.heading('#0', text="STT")
+        new_table.heading('URL', text="URL")
+        new_table.heading('Title', text="Tiêu đề")
+        new_table.heading('Time', text="Thời Gian")
 
 
 vietnamese_flag = ImageTk.PhotoImage(Image.open("vietnamese_flag.png").resize((30, 15), Image.NEAREST))
@@ -690,7 +858,7 @@ current_language = 'english'
 
 
 change_language_button = ttk.Button(button_frame_inner, image=english_flag, command=change_to_language)
-change_language_button.pack(side=tk.LEFT,padx=5)
+change_language_button.pack(side=tk.LEFT)
 
 
 # # Time Selection
@@ -720,10 +888,13 @@ var2 = tk.StringVar(value=on_or_off(ip_youtube_filter,"o"))
 var3 = tk.StringVar(value=on_or_off(ip_bing_filter,"o"))
 
 # Create radio buttons
-radio_frame = ttk.Frame(root, padding=10)
-radio_frame.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.Y)
+left_bar =ttk.Frame(root)
+left_bar.pack(side=tk.LEFT,fill=tk.Y,pady=10,padx=10)
 
-google_text = ttk.Label(radio_frame, text="Google filter") 
+radio_frame = ttk.Frame(left_bar)
+radio_frame.pack(fill=tk.BOTH , expand=True)
+
+google_text = ttk.Label(radio_frame, text="Google Filter") 
 google_text.pack()
 
 radio_button1 = ttk.Radiobutton(radio_frame, text="On", variable=var, value="on", command=handle_selection)
@@ -732,7 +903,7 @@ radio_button1.pack()
 radio_button2 = ttk.Radiobutton(radio_frame, text="Off", variable=var, value="off", command=handle_selection)
 radio_button2.pack()
 
-youtube_text = ttk.Label(radio_frame, text="Youtube filter") 
+youtube_text = ttk.Label(radio_frame, text="Youtube Filter") 
 youtube_text.pack()
 
 radio_button3 = ttk.Radiobutton(radio_frame, text="On", variable=var2, value="on", command=handle_selection2)
@@ -741,7 +912,7 @@ radio_button3.pack()
 radio_button4 = ttk.Radiobutton(radio_frame, text="Off", variable=var2, value="off", command=handle_selection2)
 radio_button4.pack()
 
-bing_text = ttk.Label(radio_frame, text="Bing filter") 
+bing_text = ttk.Label(radio_frame, text="Bing Filter") 
 bing_text.pack()
 
 radio_button5 = ttk.Radiobutton(radio_frame, text="On", variable=var3, value="on", command=handle_selection3)
@@ -774,11 +945,90 @@ def clear_all_ip():
         select_radio_button(radio_button4)
 
 
-clear_button = ttk.Button(radio_frame, text="  Reset IP  ", command=clear_all_ip, bootstyle=ttk_theme)
-clear_button.pack(side=tk.BOTTOM,padx=10)
+reset_button = ttk.Button(radio_frame, text="  Reset IP  ", command=clear_all_ip, bootstyle=ttk_theme)
+reset_button.pack(side=tk.BOTTOM,padx=10,fill=tk.X)
 
 clear_button = ttk.Button(radio_frame, text="Flush Dns", command=flush_dns, bootstyle=ttk_theme)
-clear_button.pack(side=tk.BOTTOM,pady=10)
+clear_button.pack(side=tk.BOTTOM,pady=10,fill=tk.X,padx=10)
+
+def update_his():
+    a=0
+    for i, item in enumerate(url_history, start=0):
+        new_table.insert('', i, text=a+1, values=[url_history[a],head_history[a],time_history[a]])
+        a=a+1
+
+def refresh_all():
+    global url_history
+    global time_history
+    global head_history
+
+    url_history=[]
+    time_history=[]
+    head_history=[]
+
+    update_his()
+    get_history()
+    messagebox.showinfo("Success", f"Ip Blocked Refresh !,\n {len(website_blocked)} website blocked has been loaded.\n History refresh ! \n {len(url_history)} url has been loaded.")
+
+refresh_button = ttk.Button(radio_frame, text="  Refresh  ", command=refresh_all, bootstyle=ttk_theme)
+refresh_button.pack(side=tk.BOTTOM,fill=tk.X,padx=10)
+
+def open_docx_file(file_path):
+    if os.name == 'nt': # Windows
+        os.startfile(file_path)
+    else: # MacOS and Linux
+        subprocess.run(['open', file_path] if os.name == 'posix' else ['start', file_path])
+
+# HELP BUTTON AND FRAME
+def show_help(event):
+    open_docx_file('help.pdf')
+
+# button_help_frame=tk.Frame(left_bar)
+# button_help_frame.pack(side=tk.BOTTOM,fill=tk.X)
+
+bottom_frame = ttk.Frame()
+bottom_frame.pack(fill=tk.X,padx=10)
+
+button_help = tk.Label(bottom_frame, text="❓", bg=root.cget('bg'))
+button_help.config(font=("Arial", 15)) # adjust the font size according to your needs
+button_help.pack(side=tk.RIGHT)
+button_help.bind("<Button-1>", show_help)
+
+searcH_i=ttk.Label(bottom_frame,text="Search:")
+searcH_i.pack(side=tk.LEFT, pady=10)
+
+search_var = tk.StringVar()
+
+def on_search_entry_changed(*args):
+    search_input = search_var.get()
+    table.delete(*table.get_children())
+    b=0
+    for i, line in enumerate(line_filehost):
+        if not line.startswith("#"):
+            items = line.split()
+            if len(items) == 3:
+                ip_address, website, blocked = items
+                b=b+1
+            elif len(items) == 2:
+                ip_address, website, blocked = items[0], items[1], " "
+                b=b+1
+            else:
+                continue
+
+            if search_input and search_input.lower() not in website.lower():
+                continue
+
+            table.insert('', 'end', text=b, values=[ip_address, website, blocked])
+
+
+search_var.trace('w', on_search_entry_changed)
+search_frame = ttk.Frame(bottom_frame)
+search_frame.pack(fill=tk.X, padx=10, pady=10)
+    
+search_entry = ttk.Entry(search_frame, textvariable=search_var)
+search_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+
+
 # Create TABLE 
 def open_file():
     with open('database.txt', 'r') as file:
@@ -787,7 +1037,7 @@ def open_file():
     new_table.insert('', 'end', values=(content,))
 
 table_frame = ttk.Frame(root)
-table_frame.pack(fill=tk.BOTH, expand=True,padx=16 ,pady=14)
+table_frame.pack(fill=tk.BOTH, expand=True,padx=10 ,pady=14)
 
 table_columns = ('IP', 'Website', 'Description')
 table = ttk.Treeview(table_frame, columns=table_columns)
@@ -816,7 +1066,7 @@ v_scrollbar.config(command=table.yview)
 table.config(height=15)
 # Create a new frame for the second table
 new_table_frame = ttk.Frame(root)
-new_table_frame.pack(fill=tk.BOTH, expand=True, padx=16, pady=14)
+new_table_frame.pack(fill=tk.BOTH, expand=True, padx=10,pady=15)
 
 # Create a new table
 new_table_columns = ('URL','Title','Time')
@@ -842,44 +1092,19 @@ new_v_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 new_table.config(yscrollcommand=new_v_scrollbar.set)
 new_v_scrollbar.config(command=new_table.yview)
 
-new_table.config(height=15)
+new_table.config(height=8)
+
 get_history()
-def update_his():
-    a=0
-    for i, item in enumerate(url_history, start=0):
-        new_table.insert('', i, text=a+1, values=[url_history[a],head_history[a],time_history[a]])
-        a=a+1
-
-def refresh_all():
-    global url_history
-    global time_history
-    global head_history
-
-    url_history=[]
-    time_history=[]
-    head_history=[]
-
-    update_his()
-    get_history()
-    messagebox.showinfo("Success", f"Ip Blocked Refresh !,\n {len(website_blocked)} website blocked has been loaded.\n History refresh ! \n {len(url_history)} url has been loaded.")
-
-his_button = ttk.Button(radio_frame, text="  Refresh  ", command=refresh_all, bootstyle=ttk_theme)
-his_button.pack(side=tk.BOTTOM,pady=10)
-
-
-
 update_his()
-# Call the open_file function to read the 'tex.txt' file and display its content in the new table
+
 update_table()
-
-
 
 # Password frame
 
 password_frame = tk.Frame(root)
 password_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-password_label = tk.Label(password_frame, text="KHKT PROJECT : Ip Block")
+password_label = tk.Label(password_frame, text="LOGIN")
 password_label.pack(padx=50)
 
 password_label = tk.Label(password_frame, text="Enter password: ")
@@ -888,15 +1113,16 @@ password_label.pack()
 password_entry = tk.Entry(password_frame, show="✵")
 password_entry.pack()
 
-submit_button = tk.Button(password_frame, text="Ok", command=check_password)
+submit_button = ttk.Button(password_frame, text="Ok", command=check_password)
 submit_button.pack(pady=10)
 
 exit_button = tk.Label(password_frame, text="Press ESC to exit")
 exit_button.pack(pady=10,side=tk.BOTTOM)
 
-# PURPOSE
-text_conner = tk.Label(root, text="Ip Block, delta_test", justify="left",font=("Helvetica", 6))
-text_conner.place(anchor="se", relx=0, rely=1)
+#PURPOSE
+# text_conner = tk.Label(root, text="VER:⨻delta_test",font=("Helvetica",7))
+# text_conner.pack(side=tk.LEFT,padx=10)
+
 def on_close():
     result = messagebox.askokcancel("Quit", "Do want to run as hidden \n It cant be turn off")
     if result:
@@ -908,10 +1134,3 @@ root.protocol("WM_DELETE_WINDOW", on_close)
 schedule_server_connect_start()
 
 root.mainloop()
-
-
-
-
-
-
-
