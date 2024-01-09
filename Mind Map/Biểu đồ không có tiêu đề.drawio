@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-09T03:14:59.436Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="68goncEIm9TMB7I159Rr" version="22.1.17" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-09T03:16:50.076Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0" etag="JBGQIkn5uVCE5MdiXBA0" version="22.1.17" type="github">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
     <mxGraphModel dx="441" dy="1157" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
@@ -82,6 +82,11 @@
             </Array>
             <mxPoint x="430.03000000000003" y="673.4299999999998" as="sourcePoint" />
             <mxPoint x="641.1499999999999" y="709.9899999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7drrwu_rKnFj7jkFhRm9-7" value="Đúng" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontColor=#1D3557;fontSize=15;" vertex="1" connectable="0" parent="h2GykC5T0tP8Py9upbgZ-32">
+          <mxGeometry x="0.2697" y="1" relative="1" as="geometry">
+            <mxPoint y="-9" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="h2GykC5T0tP8Py9upbgZ-40" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#457B9D;fontColor=default;fontSize=15;" parent="1" source="h2GykC5T0tP8Py9upbgZ-29" target="h2GykC5T0tP8Py9upbgZ-38" edge="1">
@@ -187,7 +192,7 @@
         <mxCell id="tvk4-RCIMyctXF-8RC0e-2" value="Lấy thông tin hệ điều hành" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;fontSize=15;" parent="1" vertex="1">
           <mxGeometry x="397.5" y="200" width="160" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="7drrwu_rKnFj7jkFhRm9-1" value="Đọc filepath &lt;br&gt;nếu có #pass&lt;br&gt;&amp;nbsp;trong file" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;fontSize=15;" vertex="1" parent="1">
+        <mxCell id="7drrwu_rKnFj7jkFhRm9-1" value="Đọc filepath &lt;br style=&quot;font-size: 15px;&quot;&gt;nếu có #pass&lt;br style=&quot;font-size: 15px;&quot;&gt;&amp;nbsp;trong file" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;fontSize=15;" vertex="1" parent="1">
           <mxGeometry x="397.5" y="640" width="165" height="80" as="geometry" />
         </mxCell>
         <mxCell id="7drrwu_rKnFj7jkFhRm9-6" value="mk == pass" style="rhombus;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#A8DADC;strokeColor=#457B9D;fontColor=#1D3557;rounded=1;fontSize=15;" vertex="1" parent="1">
