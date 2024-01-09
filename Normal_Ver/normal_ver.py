@@ -688,7 +688,7 @@ def setting():
         label_db = ttk.Label(db_on , text="IP Get Database Online")
         label_db.pack(padx=12,side=tk.LEFT)
 
-        url = "https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/database.txt"
+        url = "https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/Database/main-0database.txt"
 
         db_entry = ttk.Entry(db_on, font=("Helvetica", 12))
         db_entry.insert(0, url)
@@ -913,7 +913,7 @@ def setting():
         label_db = ttk.Label(db_on , text="IP Lấy Database Online")
         label_db.pack(padx=12,side=tk.LEFT)
 
-        url = "https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/database.txt"
+        url = "https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/Database/main-0database.txt"
 
         db_entry = ttk.Entry(db_on, font=("Helvetica", 12))
         db_entry.insert(0, url)
