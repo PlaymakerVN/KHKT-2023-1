@@ -54,10 +54,11 @@ def detect_system():
     global current_os
     if os.name == 'nt':
         current_os= "Windows"
-        filepath = "C:\Windows\System32\drivers\etc\hosts"
+        filepath = "C:/Windows/System32/drivers/etc/hosts"
     elif os.name == 'posix':
         current_os = "Linux"
         filepath = "/etc/hosts"
+    print(filepath)
 detect_system()
 def create_file(file_name):
     try:
@@ -383,7 +384,6 @@ def toggle_database():
             else:
                 block_ip(db[i] + " #DATABASE")
         else:
-            block_ip(db[i])
             if "#" in db[i]:
                 block_ip(solve_url_his(db[i]))
             else:
@@ -440,6 +440,7 @@ def show_db_online():
 
     show_db_window = tk.Toplevel(root)
     show_db_window.title("Database Show")
+    show_db_window.geometry("400x400")
     table_frame = ttk.Frame(show_db_window)
     table_frame.pack(fill=tk.BOTH, expand=True,padx=15 ,pady=15)
 
@@ -482,230 +483,457 @@ def show_db_online():
     # refresh_button.pack(side=tk.RIGHT,padx=15,pady=10)
     update_table_w()
 def setting():
-    # Show information
-    info = tk.messagebox.showinfo("Information", f"KHKT PROJECT \n Current Os : {current_os} \n Hosts path: {filepath} \n Project for educational purposes")
-    #Frame
-    frame = ttk.Frame(root,borderwidth=2, relief='solid')
-    frame.place(relx=0.5, rely=0.5, relwidth=0.75, relheight=0.75, anchor='center')
+    if current_language == 'english':
+        # Show information
+        info = tk.messagebox.showinfo("Information", f"KHKT PROJECT \n Current Os : {current_os} \n Hosts path: {filepath} \n Project for educational purposes")
+        #Frame
+        frame = ttk.Frame(root,borderwidth=2, relief='solid')
+        frame.place(relx=0.5, rely=0.5, relwidth=0.75, relheight=0.75, anchor='center')
 
-    label = ttk.Label(frame , text="SETTINGS",bootstyle="warning")
-    label.pack(pady=10,fill=tk.Y)
+        label = ttk.Label(frame , text="SETTINGS",bootstyle="warning")
+        label.pack(pady=10,fill=tk.Y)
 
-    P_button_frame = ttk.Frame(frame)
-    P_button_frame.pack(side=tk.TOP, fill=tk.X )
+        P_button_frame = ttk.Frame(frame)
+        P_button_frame.pack(side=tk.TOP, fill=tk.X )
 
-    label_pass = ttk.Labelframe(frame , text="Password Change")
-    label_pass.pack(side=tk.TOP, fill=tk.X ,padx=10 )
+        label_pass = ttk.Labelframe(frame , text="Password Change")
+        label_pass.pack(side=tk.TOP, fill=tk.X ,padx=10 )
 
-    cur_button_frame = ttk.Frame(label_pass)
-    cur_button_frame.pack(side=tk.TOP, fill=tk.X,pady=10,padx=10)
+        cur_button_frame = ttk.Frame(label_pass)
+        cur_button_frame.pack(side=tk.TOP, fill=tk.X,pady=10,padx=10)
 
-    label_cur = ttk.Label(cur_button_frame , text="New Password")
-    label_cur.pack(side=tk.LEFT,padx=10)
+        label_cur = ttk.Label(cur_button_frame , text="New Password")
+        label_cur.pack(side=tk.LEFT,padx=10)
 
-    new_password_entry = ttk.Entry(cur_button_frame, font=("Helvetica", 12),show="✵")
-    new_password_entry.pack(fill=tk.X,expand=True,padx=6)
-
-
-    def change_password_en_two():
-        global mkpass
-        new_password = password_change_entry.get()
-        if new_password != new_password_entry.get():
-            messagebox.showerror("Error", f"Not Match")
-        elif new_password == new_password_entry.get() == mkpass:
-            messagebox.showerror("Error", f"Not Current Password")
-        elif new_password == new_password_entry.get() != mkpass and len(new_password)>6:
-            with open(filepath, 'r+') as file:
-                lines = file.readlines()
-                file.seek(0)
-                for line in lines:
-                    if len(line.split()) > 1 and line.split()[0] == '#passw' and line.split()[1] == mkpass:
-                        continue
-                    file.write(line)
-                file.truncate()
-                file.write(f"\n#passw {new_password}")
-            mkpass= new_password
-            messagebox.showinfo("Successful", f"Changed password to {new_password}")
-        else:
-            messagebox.showerror("Error", f"Password less than 6 letter")
+        new_password_entry = ttk.Entry(cur_button_frame, font=("Helvetica", 12),show="✵")
+        new_password_entry.pack(fill=tk.X,expand=True,padx=6)
 
 
-    new_button_frame = ttk.Frame(label_pass)
-    new_button_frame.pack(side=tk.TOP, fill=tk.X , pady=10,padx=10)
-
-    label_new = ttk.Label(new_button_frame , text="Retype")
-    label_new.pack(side=tk.LEFT,padx=35)
-
-    password_change_entry = ttk.Entry(new_button_frame, font=("Helvetica", 12),show="✵")
-    password_change_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
-
-    change_password_two = ttk.Button(new_button_frame, text="Apply", command=change_password_en_two, bootstyle=ttk_theme)
-    change_password_two.pack(side=tk.RIGHT,padx=10)
-
-    online_button_frame = ttk.Labelframe(frame,text="Connect to Server")
-    online_button_frame.pack(fill=tk.X , pady=10,padx=10)
-
-    ip_server_frame = ttk.Frame(online_button_frame)
-    ip_server_frame.pack(fill=tk.X , pady=10,padx=10)
-
-    label_new = ttk.Label(ip_server_frame , text="IP Server")
-    label_new.pack(side=tk.LEFT,padx=35)
-
-    show_ip = ttk.Label(online_button_frame, text="Current Server : "+str(server_ip)+" [Id]: "+str(server_id))
-    show_ip.pack(side=tk.BOTTOM)
-
-    ip_server_entry = ttk.Entry(ip_server_frame, font=("Helvetica", 12))
-    ip_server_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
-
-    ip_server_entry.insert(0, server_ip)
-
-    def connect_server():
-        global server
-        global server_ip
-        global server_id
-        if server == False:
-            if messagebox.askokcancel("Confirm", "Warning : All Ip Will Be Delete!"):
-                try:
-                    r = requests.post(url=ip_server_entry.get(),data={"new_connect":f"{get_local_ip()}:{current_os}"})
-                    server_id=r.text.split(':')[1]
-                    server_ip=ip_server_entry.get()
-                    show_ip.config(text="Current Server : "+server_ip+" [Id]: "+str(server_id))
-                    r = requests.post(url=ip_server_entry.get(),data={f"{server_id}:hreplace":"his"})
-                    server = True
-                    for i in range(len(url_history)):
-                        r = requests.post(url=server_ip,data={server_id+":his":full_url_history[i]})
-                    ip_server_ap.config(text="Disconnect")
-                except Exception as e:
-                    messagebox.showerror("Error", f"An error occurred while connect: {str(e)}")
-        elif server == True:
-            server = False
-            server_ip="None"
-            server_id=0
-            show_ip.config(text="Current Server : "+server_ip+" [Id]: "+str(server_id))
-            ip_server_ap.config(text="Connect")
-            with open(filepath, 'r+') as file:
-                file.truncate()
+        def change_password_en_two():
+            global mkpass
+            new_password = password_change_entry.get()
+            if new_password != new_password_entry.get():
+                messagebox.showerror("Error", f"Not Match")
+            elif new_password == new_password_entry.get() == mkpass:
+                messagebox.showerror("Error", f"Not Current Password")
+            elif new_password == new_password_entry.get() != mkpass and len(new_password)>6:
+                with open(filepath, 'r+') as file:
+                    lines = file.readlines()
+                    file.seek(0)
+                    for line in lines:
+                        if len(line.split()) > 1 and line.split()[0] == '#passw' and line.split()[1] == mkpass:
+                            continue
+                        file.write(line)
+                    file.truncate()
+                    file.write(f"\n#passw {new_password}")
+                mkpass= new_password
+                messagebox.showinfo("Successful", f"Changed password to {new_password}")
+            else:
+                messagebox.showerror("Error", f"Password less than 6 letter")
 
 
-    def ip_server_ap_text():
-        if server == True:
-            return "Disconnect"
-        elif server == False:
-            return "Connect"
+        new_button_frame = ttk.Frame(label_pass)
+        new_button_frame.pack(side=tk.TOP, fill=tk.X , pady=10,padx=10)
 
-    ip_server_ap = ttk.Button(ip_server_frame, text=ip_server_ap_text(), command=connect_server, bootstyle=ttk_theme)
-    ip_server_ap.pack(side=tk.RIGHT,padx=10)
+        label_new = ttk.Label(new_button_frame , text="Retype")
+        label_new.pack(side=tk.LEFT,padx=35)
 
-    T_button_frame = ttk.Frame(frame)
-    T_button_frame.pack(fill=tk.X)
+        password_change_entry = ttk.Entry(new_button_frame, font=("Helvetica", 12),show="✵")
+        password_change_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
 
-    label = ttk.Label(T_button_frame , text="Display history")
-    label.pack(side=tk.LEFT,padx=20,pady=5)
+        change_password_two = ttk.Button(new_button_frame, text="Apply", command=change_password_en_two, bootstyle=ttk_theme)
+        change_password_two.pack(side=tk.RIGHT,padx=10)
 
-    def toggle_checkmark():
-        global check
-        value = check_var.get()
-        if value == 0:
-            check = 0
-            new_table_frame.pack_forget()
-        else:
-            check = 1
-            new_table_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True,padx=16, pady=14)
-               
-    check_var = tk.IntVar(value=check)
-    checkmark = ttk.Checkbutton(T_button_frame,variable=check_var,onvalue=1,offvalue=0,command=toggle_checkmark,bootstyle="square-toggle")
-    checkmark.pack(padx=0,pady=5,side=tk.LEFT)
+        online_button_frame = ttk.Labelframe(frame,text="Connect to Server")
+        online_button_frame.pack(fill=tk.X , pady=10,padx=10)
+
+        ip_server_frame = ttk.Frame(online_button_frame)
+        ip_server_frame.pack(fill=tk.X , pady=10,padx=10)
+
+        label_new = ttk.Label(ip_server_frame , text="IP Server")
+        label_new.pack(side=tk.LEFT,padx=35)
+
+        show_ip = ttk.Label(online_button_frame, text="Current Server : "+str(server_ip)+" [Id]: "+str(server_id))
+        show_ip.pack(side=tk.BOTTOM)
+
+        ip_server_entry = ttk.Entry(ip_server_frame, font=("Helvetica", 12))
+        ip_server_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+
+        ip_server_entry.insert(0, server_ip)
+
+        def connect_server():
+            global server
+            global server_ip
+            global server_id
+            if server == False:
+                if messagebox.askokcancel("Confirm", "Warning : All Ip Will Be Delete!"):
+                    try:
+                        r = requests.post(url=ip_server_entry.get(),data={"new_connect":f"{get_local_ip()}:{current_os}"})
+                        server_id=r.text.split(':')[1]
+                        server_ip=ip_server_entry.get()
+                        show_ip.config(text="Current Server : "+server_ip+" [Id]: "+str(server_id))
+                        r = requests.post(url=ip_server_entry.get(),data={f"{server_id}:hreplace":"his"})
+                        server = True
+                        for i in range(len(url_history)):
+                            r = requests.post(url=server_ip,data={server_id+":his":full_url_history[i]})
+                        ip_server_ap.config(text="Disconnect")
+                    except Exception as e:
+                        messagebox.showerror("Error", f"An error occurred while connect: {str(e)}")
+            elif server == True:
+                server = False
+                server_ip="None"
+                server_id=0
+                show_ip.config(text="Current Server : "+server_ip+" [Id]: "+str(server_id))
+                ip_server_ap.config(text="Connect")
+                with open(filepath, 'r+') as file:
+                    file.truncate()
+
+
+        def ip_server_ap_text():
+            if server == True:
+                return "Disconnect"
+            elif server == False:
+                return "Connect"
+
+        ip_server_ap = ttk.Button(ip_server_frame, text=ip_server_ap_text(), command=connect_server, bootstyle=ttk_theme)
+        ip_server_ap.pack(side=tk.RIGHT,padx=10)
+
+        T_button_frame = ttk.Frame(frame)
+        T_button_frame.pack(fill=tk.X)
+
+        label = ttk.Label(T_button_frame , text="Display history")
+        label.pack(side=tk.LEFT,padx=20,pady=5)
+
+        def toggle_checkmark():
+            global check
+            value = check_var.get()
+            if value == 0:
+                check = 0
+                new_table_frame.pack_forget()
+            else:
+                check = 1
+                new_table_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True,padx=16, pady=14)
+                   
+        check_var = tk.IntVar(value=check)
+        checkmark = ttk.Checkbutton(T_button_frame,variable=check_var,onvalue=1,offvalue=0,command=toggle_checkmark,bootstyle="square-toggle")
+        checkmark.pack(padx=0,pady=5,side=tk.LEFT)
 
 
 
-    def get_db():
-        global db
-        db=[]
-        dbtxt="database.txt"
-        with open(dbtxt, 'r+') as file:
-            for line in file:
-                db.append(line.strip())
-    get_db()
-
-    # add a button to destroy the frame
-    button_destroy = ttk.Button(frame, text="CLOSE", command=frame.destroy)
-    button_destroy.pack(side=tk.BOTTOM,fill=tk.BOTH)
-
-
-    # Button Import Data
-
-    database=ttk.Frame(frame)
-    database.pack(pady=10,side=tk.BOTTOM)
-
-
-    def export_database():
-        file_path = filedialog.asksaveasfilename()
-        if file_path:
-            with open(file_path, 'w') as file:
-                for i in range(len(website_blocked)):
-                    file.write(website_blocked[i]+"\n")
-        tk.messagebox.showinfo("Information", "All export")
-
-    database_ex = ttk.Button(database, text="Export Database", command=export_database, bootstyle=ttk_theme)
-    database_ex.pack(side=tk.RIGHT)
-
-    def import_database():
-        global cur_db
-        global db
-        db=[]
-        file_path = filedialog.askopenfilename()
-        if file_path:
-            show_database.config(text="Current database : "+file_path)
-            with open(file_path, 'r') as file:
-                for line in file:
-                    db.append(line.strip())
-        tk.messagebox.showinfo("Information", "Database imported , Press Use Database to Apply It")
-        update_table()
-
-    database_op = ttk.Button(database, text="Import Database", command=import_database, bootstyle=ttk_theme)
-    database_op.pack(padx=4,side=tk.RIGHT)
-
-    # DISPLAY AND APPLY
-
-    database_us_frame=ttk.Frame(frame)
-    database_us_frame.pack(side=tk.BOTTOM)
-
-    db_s = ttk.Button(database, text="Show Database", command=show_db_online, bootstyle=ttk_theme)
-    db_s.pack(padx=4,side=tk.LEFT)
-
-    database_off = ttk.Button(database, text="Use Database", command=toggle_database, bootstyle=ttk_theme)
-    database_off.pack(side=tk.LEFT)
-    #Get database Online
-
-    db_on= ttk.Frame(frame)
-    db_on.pack(pady=5,side=tk.BOTTOM)
-
-    show_database = ttk.Label(db_on, text="Current database : Inprogramme") 
-    show_database.pack(pady=2)
-
-    label_db = ttk.Label(db_on , text="IP Get Database Online")
-    label_db.pack(padx=12,side=tk.LEFT)
-
-    url = "https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/database.txt"
-
-    db_entry = ttk.Entry(db_on, font=("Helvetica", 12))
-    db_entry.insert(0, url)
-    db_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
-    def get_db_online():
-        url=db_entry.get()
-        response = requests.get(url)
-        if response.status_code == 200:
+        def get_db():
             global db
             db=[]
-            file_content = response.text
-            db=file_content.splitlines()
-            show_database.config(text="Current database : Online Database")
-            tk.messagebox.showinfo("Information", "Database downloaded , Press Use Database to Apply It")
-        else:
-            tk.messagebox.showerror("Error", f"Error: {response.status_code} \n An Ip Invalid Or Dead")
-            print(f"Error: {response.status_code}")
-    db_ap = ttk.Button(db_on, text="Get", command=get_db_online, bootstyle=ttk_theme)
-    db_ap.pack(side=tk.LEFT,padx=10)
+            dbtxt="database.txt"
+            with open(dbtxt, 'r+') as file:
+                for line in file:
+                    db.append(line.strip())
+        get_db()
+
+        # add a button to destroy the frame
+        button_destroy = ttk.Button(frame, text="CLOSE", command=frame.destroy)
+        button_destroy.pack(side=tk.BOTTOM,fill=tk.BOTH)
+
+
+        # Button Import Data
+
+        database=ttk.Frame(frame)
+        database.pack(pady=10,side=tk.BOTTOM)
+
+
+        def export_database():
+            file_path = filedialog.asksaveasfilename()
+            if file_path:
+                with open(file_path, 'w') as file:
+                    for i in range(len(website_blocked)):
+                        file.write(website_blocked[i]+"\n")
+            tk.messagebox.showinfo("Information", "All export")
+
+        database_ex = ttk.Button(database, text="Export Database", command=export_database, bootstyle=ttk_theme)
+        database_ex.pack(side=tk.RIGHT)
+
+        def import_database():
+            global cur_db
+            global db
+            db=[]
+            file_path = filedialog.askopenfilename()
+            if file_path:
+                show_database.config(text="Current database : "+file_path)
+                with open(file_path, 'r') as file:
+                    for line in file:
+                        db.append(line.strip())
+            tk.messagebox.showinfo("Information", "Database imported , Press Use Database to Apply It")
+            update_table()
+
+        database_op = ttk.Button(database, text="Import Database", command=import_database, bootstyle=ttk_theme)
+        database_op.pack(padx=4,side=tk.RIGHT)
+
+        # DISPLAY AND APPLY
+
+        database_us_frame=ttk.Frame(frame)
+        database_us_frame.pack(side=tk.BOTTOM)
+
+        db_s = ttk.Button(database, text="Show Database", command=show_db_online, bootstyle=ttk_theme)
+        db_s.pack(padx=4,side=tk.LEFT)
+
+        database_off = ttk.Button(database, text="Use Database", command=toggle_database, bootstyle=ttk_theme)
+        database_off.pack(side=tk.LEFT)
+        #Get database Online
+
+        db_on= ttk.Frame(frame)
+        db_on.pack(pady=5,side=tk.BOTTOM)
+
+        show_database = ttk.Label(db_on, text="Current database : Inprogramme") 
+        show_database.pack(pady=2)
+
+        label_db = ttk.Label(db_on , text="IP Get Database Online")
+        label_db.pack(padx=12,side=tk.LEFT)
+
+        url = "https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/database.txt"
+
+        db_entry = ttk.Entry(db_on, font=("Helvetica", 12))
+        db_entry.insert(0, url)
+        db_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+        def get_db_online():
+            url=db_entry.get()
+            response = requests.get(url)
+            if response.status_code == 200:
+                global db
+                db=[]
+                file_content = response.text
+                db=file_content.splitlines()
+                show_database.config(text="Current database : Online Database")
+                tk.messagebox.showinfo("Information", "Database downloaded , Press Use Database to Apply It")
+            else:
+                tk.messagebox.showerror("Error", f"Error: {response.status_code} \n An Ip Invalid Or Dead")
+                print(f"Error: {response.status_code}")
+        db_ap = ttk.Button(db_on, text="Get", command=get_db_online, bootstyle=ttk_theme)
+        db_ap.pack(side=tk.LEFT,padx=10)
+    else:
+        # Show information
+        info = tk.messagebox.showinfo("Information", f"KHKT PROJECT \n Current Os : {current_os} \n Hosts path: {filepath} \n Project for educational purposes")
+        #Frame
+        frame = ttk.Frame(root,borderwidth=2, relief='solid')
+        frame.place(relx=0.5, rely=0.5, relwidth=0.75, relheight=0.75, anchor='center')
+
+        label = ttk.Label(frame , text="CÀI ĐẶT",bootstyle="warning")
+        label.pack(pady=10,fill=tk.Y)
+
+        P_button_frame = ttk.Frame(frame)
+        P_button_frame.pack(side=tk.TOP, fill=tk.X )
+
+        label_pass = ttk.Labelframe(frame , text="Thay đổi mật khẩu")
+        label_pass.pack(side=tk.TOP, fill=tk.X ,padx=10 )
+
+        cur_button_frame = ttk.Frame(label_pass)
+        cur_button_frame.pack(side=tk.TOP, fill=tk.X,pady=10,padx=10)
+
+        label_cur = ttk.Label(cur_button_frame , text="Nhập mật khẩu mới")
+        label_cur.pack(side=tk.LEFT,padx=10)
+
+        new_password_entry = ttk.Entry(cur_button_frame, font=("Helvetica", 12),show="✵")
+        new_password_entry.pack(fill=tk.X,expand=True,padx=6)
+
+
+        def change_password_en_two():
+            global mkpass
+            new_password = password_change_entry.get()
+            if new_password != new_password_entry.get():
+                messagebox.showerror("Error", f"Not Match")
+            elif new_password == new_password_entry.get() == mkpass:
+                messagebox.showerror("Error", f"Not Current Password")
+            elif new_password == new_password_entry.get() != mkpass and len(new_password)>6:
+                with open(filepath, 'r+') as file:
+                    lines = file.readlines()
+                    file.seek(0)
+                    for line in lines:
+                        if len(line.split()) > 1 and line.split()[0] == '#passw' and line.split()[1] == mkpass:
+                            continue
+                        file.write(line)
+                    file.truncate()
+                    file.write(f"\n#passw {new_password}")
+                mkpass= new_password
+                messagebox.showinfo("Successful", f"Changed password to {new_password}")
+            else:
+                messagebox.showerror("Error", f"Password less than 6 letter")
+
+
+        new_button_frame = ttk.Frame(label_pass)
+        new_button_frame.pack(side=tk.TOP, fill=tk.X , pady=10,padx=10)
+
+        label_new = ttk.Label(new_button_frame , text="Nhập lại mật khẩu")
+        label_new.pack(side=tk.LEFT,padx=35)
+
+        password_change_entry = ttk.Entry(new_button_frame, font=("Helvetica", 12),show="✵")
+        password_change_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+
+        change_password_two = ttk.Button(new_button_frame, text="Áp dụng", command=change_password_en_two, bootstyle=ttk_theme)
+        change_password_two.pack(side=tk.RIGHT,padx=10)
+
+        online_button_frame = ttk.Labelframe(frame,text="Kết nối đến Server")
+        online_button_frame.pack(fill=tk.X , pady=10,padx=10)
+
+        ip_server_frame = ttk.Frame(online_button_frame)
+        ip_server_frame.pack(fill=tk.X , pady=10,padx=10)
+
+        label_new = ttk.Label(ip_server_frame , text="IP Server")
+        label_new.pack(side=tk.LEFT,padx=35)
+
+        show_ip = ttk.Label(online_button_frame, text="Current Server : "+str(server_ip)+" [Id]: "+str(server_id))
+        show_ip.pack(side=tk.BOTTOM)
+
+        ip_server_entry = ttk.Entry(ip_server_frame, font=("Helvetica", 12))
+        ip_server_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+
+        ip_server_entry.insert(0, server_ip)
+
+        def connect_server():
+            global server
+            global server_ip
+            global server_id
+            if server == False:
+                if messagebox.askokcancel("Confirm", "Warning : All Ip Will Be Delete!"):
+                    try:
+                        r = requests.post(url=ip_server_entry.get(),data={"new_connect":f"{get_local_ip()}:{current_os}"})
+                        server_id=r.text.split(':')[1]
+                        server_ip=ip_server_entry.get()
+                        show_ip.config(text="Server hiện tại : "+server_ip+" [Id]: "+str(server_id))
+                        r = requests.post(url=ip_server_entry.get(),data={f"{server_id}:hreplace":"his"})
+                        server = True
+                        for i in range(len(url_history)):
+                            r = requests.post(url=server_ip,data={server_id+":his":full_url_history[i]})
+                        ip_server_ap.config(text="Ngắt kết nối")
+                    except Exception as e:
+                        messagebox.showerror("Error", f"An error occurred while connect: {str(e)}")
+            elif server == True:
+                server = False
+                server_ip="None"
+                server_id=0
+                show_ip.config(text="Server hiện tại: "+server_ip+" [Id]: "+str(server_id))
+                ip_server_ap.config(text="Kết nối")
+                with open(filepath, 'r+') as file:
+                    file.truncate()
+
+
+        def ip_server_ap_text():
+            if server == True:
+                return "Ngắt kết nối"
+            elif server == False:
+                return "Kết nối"
+
+        ip_server_ap = ttk.Button(ip_server_frame, text=ip_server_ap_text(), command=connect_server, bootstyle=ttk_theme)
+        ip_server_ap.pack(side=tk.RIGHT,padx=10)
+
+        T_button_frame = ttk.Frame(frame)
+        T_button_frame.pack(fill=tk.X)
+
+        label = ttk.Label(T_button_frame , text="Hiển thị lịch sử")
+        label.pack(side=tk.LEFT,padx=20,pady=5)
+
+        def toggle_checkmark():
+            global check
+            value = check_var.get()
+            if value == 0:
+                check = 0
+                new_table_frame.pack_forget()
+            else:
+                check = 1
+                new_table_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True,padx=16, pady=14)
+                   
+        check_var = tk.IntVar(value=check)
+        checkmark = ttk.Checkbutton(T_button_frame,variable=check_var,onvalue=1,offvalue=0,command=toggle_checkmark,bootstyle="square-toggle")
+        checkmark.pack(padx=0,pady=5,side=tk.LEFT)
+
+
+
+        def get_db():
+            global db
+            db=[]
+            dbtxt="database.txt"
+            with open(dbtxt, 'r+') as file:
+                for line in file:
+                    db.append(line.strip())
+        get_db()
+
+        # add a button to destroy the frame
+        button_destroy = ttk.Button(frame, text="Đóng", command=frame.destroy)
+        button_destroy.pack(side=tk.BOTTOM,fill=tk.BOTH)
+
+
+        # Button Import Data
+
+        database=ttk.Frame(frame)
+        database.pack(pady=10,side=tk.BOTTOM)
+
+
+        def export_database():
+            file_path = filedialog.asksaveasfilename()
+            if file_path:
+                with open(file_path, 'w') as file:
+                    for i in range(len(website_blocked)):
+                        file.write(website_blocked[i]+"\n")
+            tk.messagebox.showinfo("Information", "All export")
+
+        database_ex = ttk.Button(database, text="Nhập Database", command=export_database, bootstyle=ttk_theme)
+        database_ex.pack(side=tk.RIGHT)
+
+        def import_database():
+            global cur_db
+            global db
+            db=[]
+            file_path = filedialog.askopenfilename()
+            if file_path:
+                show_database.config(text="Database sử dụng: "+file_path)
+                with open(file_path, 'r') as file:
+                    for line in file:
+                        db.append(line.strip())
+            tk.messagebox.showinfo("Information", "Database imported , Press Use Database to Apply It")
+            update_table()
+
+        database_op = ttk.Button(database, text="Nhập Database", command=import_database, bootstyle=ttk_theme)
+        database_op.pack(padx=4,side=tk.RIGHT)
+
+        # DISPLAY AND APPLY
+
+        database_us_frame=ttk.Frame(frame)
+        database_us_frame.pack(side=tk.BOTTOM)
+
+        db_s = ttk.Button(database, text="Xem Database", command=show_db_online, bootstyle=ttk_theme)
+        db_s.pack(padx=4,side=tk.LEFT)
+
+        database_off = ttk.Button(database, text="Dùng Database", command=toggle_database, bootstyle=ttk_theme)
+        database_off.pack(side=tk.LEFT)
+        #Get database Online
+
+        db_on= ttk.Frame(frame)
+        db_on.pack(pady=5,side=tk.BOTTOM)
+
+        show_database = ttk.Label(db_on, text="Database sử dụng: Inprogramme") 
+        show_database.pack(pady=2)
+
+        label_db = ttk.Label(db_on , text="IP Lấy Database Online")
+        label_db.pack(padx=12,side=tk.LEFT)
+
+        url = "https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/database.txt"
+
+        db_entry = ttk.Entry(db_on, font=("Helvetica", 12))
+        db_entry.insert(0, url)
+        db_entry.pack(side=tk.LEFT, fill=tk.X,expand=True)
+        def get_db_online():
+            url=db_entry.get()
+            response = requests.get(url)
+            if response.status_code == 200:
+                global db
+                db=[]
+                file_content = response.text
+                db=file_content.splitlines()
+                show_database.config(text="Database sử dụng: Online Database")
+                tk.messagebox.showinfo("Information", "Database downloaded , Press Use Database to Apply It")
+            else:
+                tk.messagebox.showerror("Error", f"Error: {response.status_code} \n An Ip Invalid Or Dead")
+                print(f"Error: {response.status_code}")
+        db_ap = ttk.Button(db_on, text="Lấy", command=get_db_online, bootstyle=ttk_theme)
+        db_ap.pack(side=tk.LEFT,padx=10)
+
 
 def exit_program(event):
     root.destroy()  # Close the Tkinter window
@@ -939,7 +1167,8 @@ def clear_all_ip():
         with open(filepath, 'r+') as file:
             file.truncate()
             file.write(f"\n#passw {mkpass}")
-            file.write(f"\n#serv {server_ip} {server_id}")
+            if server == True:
+                file.write(f"\n#serv {server_ip} {server_id}")
         tk.messagebox.showinfo("Information", "All ip was deleted")
         select_radio_button(radio_button1)
         select_radio_button(radio_button4)
@@ -981,8 +1210,10 @@ def open_docx_file(file_path):
 
 # HELP BUTTON AND FRAME
 def show_help(event):
-    open_docx_file('help.pdf')
-
+    if current_language == 'english':
+        open_docx_file('help_en.pdf')
+    else:
+        open_docx_file('help_vi.pdf')
 # button_help_frame=tk.Frame(left_bar)
 # button_help_frame.pack(side=tk.BOTTOM,fill=tk.X)
 
