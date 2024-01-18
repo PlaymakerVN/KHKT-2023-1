@@ -158,6 +158,7 @@ def update_table():
         line_filehost.append(line)
         if not line.startswith("#"):
             items = line.split()
+            print(items)
             if len(items) == 3:
                 row_column=row_column+1
                 ip_address, website, blocked = items
@@ -951,13 +952,13 @@ def server_connect_start():
     if server == True:
         with open(filepath, 'r+') as file:
             file.truncate()
-            a= get_ip()
+            a=get_ip()
+            file.write(f"\n#passw {mkpass}")
+            file.write(f"\n#serv {server_ip} {server_id}")
             for i in range(len(a)):
                 if a[i] != "":
                     file.write(f"\n127.0.0.1 {a[i]} #Server")
-                    file.write(f"\n#passw {mkpass}")
-                    file.write(f"\n#serv {server_ip} {server_id}")
-            update_table()
+        update_table()
 
 def schedule_server_connect_start():
     server_connect_start()
@@ -1360,7 +1361,9 @@ def on_close():
         root.withdraw()
     else:
         root.destroy()
-root.protocol("WM_DELETE_WINDOW", on_close)
+
+if server == True:
+    root.protocol("WM_DELETE_WINDOW", on_close)
 
 schedule_server_connect_start()
 
