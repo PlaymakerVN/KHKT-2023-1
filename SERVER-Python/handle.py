@@ -46,6 +46,11 @@ def create_file(filename):
 			print(f"File {filename} created successfully.")
 	except FileExistsError:
 		print(f"File {filename} already exists.")
+
+
+append_text(f_log,"THE PROJECT LOADED"+"\n"+"<hr>")
+
+
 device_connected=[]
 replace_text(f_device,"0")
 replace_text(f_connected,"")
@@ -53,12 +58,12 @@ def get_db(url):
 	response = requests.get(url)
 	if response.status_code == 200:
 		file_content = response.text
-		append_text(f_log,f"{url} ip getted")
+		append_text(f_log,f"{url} ip getted"+"\n")
 		append_text(f_bl,"\n"+file_content)
 	else:
-		append_text(f_log,f"{url} cant get")
+		append_text(f_log,f"{url} cant get"+"\n")
 		print(f"Error: {response.status_code}")
-db1="https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/database.txt"
+db1="https://raw.githubusercontent.com/PlaymakerVN/KHKT-2023-1/main/Database/main-0database.txt"
 def handle(key,data):
 	user_post="<div><b class='user-name'> </b><p id='user-chat'>"+data+"</p></div><br>" + "\n"
 	bot_post="<div class='botchat'><p class='chat-time'>"+data+"</p><b>  </b></div><br>"+"\n"
@@ -70,25 +75,27 @@ def handle(key,data):
 			replace_text(f_clear,"\n")
 			r = "USER OK"
 		else:
-			append_text(f_log,user_post)
+			append_text(f_log,user_post+"\n")
 			print("ADDED TEXT" + data)
 			r = "USER OK"
 	if key == "post_blacklist":
 		if data.startswith("$del:"):
 			del_ip=data.split(":")[1]
 			delete_line(f_bl,del_ip)
+			append_text(f_log,"REMOVE:"+del_ip+"\n")
 			r = "USER OK"
 		if data.startswith("$clear"):
 			append_text(f_log,"CLEAR BLACKLIST")
 			replace_text(f_bl,"\n")
 		if data.startswith("$get:"):
-			append_text(f_log,"GETTING DATA")
+			append_text(f_log,"GETTING DATA"+"\n")
 			url=data.split("$get:")[0]
 			get_db(db1)
 			r = "USER OK"
 		if data.startswith("$add:"):
 			url=data.split("$add:")[1]
 			append_text(f_bl,url+"\n")
+			append_text(f_log,"ADD:"+url+"\n")
 			r = "USER OK"
 	#CLIENT METHOD\
 	# MAKE ID FOR DEIVCE CONNECTED
@@ -104,7 +111,7 @@ def handle(key,data):
 			if data_ip not in device_connected:
 				device_connected.append(data_ip)
 				p = device_connected.index(data_ip)
-
+				append_text(f_log,"NEW CONNECTION: "+data_ip+"ID LOGGED: "+str(int(p)+1)+"\n")
 				file.write('<a href=""id="'+str(int(p)+1)+'"><span1 class="tooltip">'+data_ip+'</span></a>' + "\n")
 				print("DEVICE CONNECTED : ",device_connected)
 				print("WRITE " + data_ip)
@@ -138,8 +145,8 @@ def handle(key,data):
 		r = "CLIENT OK"
 	#BLACKLIST POST
 	if key =="bl_p":
-		append_text(f_bl,data+"\n <hr>")
-		append_text(f_log,bot_post)
+		append_text(f_bl,data+"\n")
+		append_text(f_log,bot_post+"\n")
 		print("ADDED TEXT" + data)
 		r = "CLIENT OK"
 	if ":hreplace" in key and data=="his":

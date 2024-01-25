@@ -366,7 +366,7 @@ nav a .tooltip::after {
 }
 
 #blacklist {
-  height: 95%;
+  height: 85%;
   max-height: 100%;
   width: 90%;
   text-align: left;

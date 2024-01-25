@@ -6,7 +6,7 @@
         <meta name="description" content="KHKT - LXT" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
 <!--             <div id="title">
@@ -15,6 +15,9 @@
             </div> -->
             <div style="position: fixed;right: 0%;bottom: 0%;font-size: 15px;text-align: right;z-index: 9999;">
                     <p>project for educational purposes</p>
+            </div>
+            <div style="position: fixed;left: 0%;bottom: 0%;font-size: 15px;text-align: left;z-index: 9999;">
+                    <p>DEV_0.3*</p>
             </div>
             <div id="intro_main">
                 <h1>WELCOME TO PROJECT:</h1>
@@ -28,42 +31,37 @@
             </div>
             <div class="sidebar">
                 <nav>
-                    <b  class="box"><span class="tooltip">USER</span></b>
+                    <b><span class="tooltip">USER CONNECTED</span></b>
                     <hr>
                     <div id="connected">
                     </div>
                 </nav>
-            </div>
-            <div class="console-box" id="console-box">
-                <div id="wrapper-1">
-                    <div id="info-d">
-<!--                         <p>OS : Linux</p>
-                        <p>Status : Active (Updated 2s Ago)</p>
-                        <p>Time/Up : 2s/Up</p>
-                        <p>Time connected : 67s</p>
-                        <p>Version : TESTING_11</p> -->
-                    </div>
-                </div>
                 <div id="wrapper-2">
                     <!-- <p>CONSOLE</p> -->
                     <div id="chatbox">
                     </div>
-                    <form name="message" action="" id="form_console">
+<!--                     <form name="message" action="" id="form_console">
                         <input name="usermsg" type="text" id="usermsg" />
                         <input name="submitmsg" type="submit" id="submitmsg" value="!" />
-                    </form>
+                    </form> -->
                 </div>
             </div>
             <div class="list" id="list">
                 <div id="history"></div>
             </div>
-            <div id="right" class="right">
-                <div id="blacklist"></div>
-                <form name="message" action="" id="form_blacklist">
-                    <input name="his" type="text" id="blacklistmsg" />
-                    <input name="submitmsg" type="submit" id="blacklistsubmit" value="  " />
-                </form>
-            </div>
+<div id="right" class="right">
+    <div id="blacklist"></div>
+    <form name="message" action="" id="form_blacklist">
+        <select id="selectBlacklist">
+            <option value="">Choose</option>
+            <option value="$add:">Add</option>
+            <option value="$del:">Remove</option>
+            <option value="$get:">Get</option>
+        </select>
+        <input name="his" type="text" id="blacklistmsg"   />
+        <input name="submitmsg" type="submit" id="blacklistsubmit" value=" " />
+    </form>
+</div>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script type="text/javascript">
             id_s=0;
@@ -74,8 +72,9 @@
                     $('#right').addClass('right-ac').removeClass('right');
                 });
                 $("#blacklistsubmit").click(function () {
+                    var selectedValue = $("#selectBlacklist").val();
                     var clientmsg = $("#blacklistmsg").val();
-                    $.post("post.php", { post_blacklist: clientmsg });
+                    $.post("post.php", { post_blacklist: selectedValue + clientmsg });
                     $("#blacklistmsg").val("");
                     return false;
                 });
@@ -117,7 +116,7 @@
                         url: "history."+i+".html",
                         cache: false,
                         success: function (html) {
-                            $("#history").html(html); //Insert chat log into the #chatbox div 
+                            $("#history").html(html); 
                         }
                     });
                 }

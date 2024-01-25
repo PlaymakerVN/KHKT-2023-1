@@ -874,7 +874,7 @@ def setting():
                         file.write(website_blocked[i]+"\n")
             tk.messagebox.showinfo("Information", "All export")
 
-        database_ex = ttk.Button(database, text="Nhập Database", command=export_database, bootstyle=ttk_theme)
+        database_ex = ttk.Button(database, text="Xuất Database", command=export_database, bootstyle=ttk_theme)
         database_ex.pack(side=tk.RIGHT)
 
         def import_database():
